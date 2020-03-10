@@ -1,10 +1,12 @@
 import { Page } from '../Page';
+import { range } from "../utils/range";
 
 export class Wizard extends Page {
   constructor(state, rerender) {
     super({
       ...state,
       step: 0,
+      amountOfInputs: 0,
       inputData: {
         name: ['Naam'],
         description: ['Beschrijving'],
@@ -14,24 +16,39 @@ export class Wizard extends Page {
         minimum_stock: ['Minimum voorraad']
       }
     }, rerender);
-  }
+  };
 
   render() {
-    const id = Object.keys(this.state.inputData)[this.state.step];
-    const label = Object.values(this.state.inputData)[this.state.step][0];
+    let id = '';
+    let label = '';
+
+    if (this.state.step < Object.keys(this.state.inputData).length) {
+      id = Object.keys(this.state.inputData)[this.state.step];
+      label = Object.values(this.state.inputData)[this.state.step][0];
+    }
 
     return `
-      ${this.state.step <= Object.keys(this.state.inputData).length ? `
+      ${this.state.step < Object.keys(this.state.inputData).length ? `
         <div class="form-group">
           <label for="${id}">${label}</label>
           <input type="text" class="form-control" id="${id}">
         </div>
         <button onclick="nextStep" class="btn btn-primary">Volgende stap</button>`
       : `
-        <p>Wil je nieuwe shitty?</p>
+        ${range(0, this.state.amountOfInputs).map(i => `
+          <div class="form-group">
+            <label for="name_${i}">Naam</label>
+            <input type="text" class="form-control" id="name_${i}">
+            <label for="value_${i}">Waarde</label>
+            <input type="text" class="form-control" id="value_${i}">
+          </div>
+        `)}
+        <button onclick="addInputField" class="btn btn-primary">Extra veld toevoegen</button>
+        ${this.state.amountOfInputs > 0 && `<button onclick="removeInputField" class="btn btn-primary">Laatste veld verwijderen</button>`}
+        <button onclick="saveProduct" class="btn btn-primary">Product toevoegen</button>
       `}
     `;
-  }
+  };
 
   mount() {
     let extraFields;
@@ -85,7 +102,7 @@ export class Wizard extends Page {
         }), {})
       }
     });
-  }
+  };
 
   nextStep = () => {
     const id = Object.keys(this.state.inputData)[this.state.step];
@@ -101,5 +118,12 @@ export class Wizard extends Page {
         ]
       }
     });
+  };
+
+  addInputField = () => this.set({ ...this.state, amountOfInputs: this.state.amountOfInputs + 1 });
+  removeInputField = () => this.set({ ...this.state, amountOfInputs: this.state.amountOfInputs - 1 });
+
+  saveProduct = () => {
+
   };
 }
