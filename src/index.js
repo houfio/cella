@@ -1,5 +1,6 @@
 import { Home } from './pages/Home';
 import { Category } from './pages/Category';
+import './index.scss';
 
 let current;
 const routes = [
