@@ -14,7 +14,7 @@ export class Home extends Page {
   }
 
   unmount() {
-    console.log('unmount');
+    clearTimeout(this.timeout);
   }
 
   increase = () => {
@@ -22,6 +22,6 @@ export class Home extends Page {
       count: (this.state.count || 0) + 1
     });
 
-    setTimeout(this.increase, 1000);
+    this.timeout = setTimeout(this.increase, 1000);
   };
 }
