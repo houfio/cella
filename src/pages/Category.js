@@ -7,7 +7,7 @@ export class Category extends Page {
     return html`
       <div class="container">
         <button onclick="navigateTo">
-          Create product
+          Product toevoegen
         </button>
       </div>
     `;

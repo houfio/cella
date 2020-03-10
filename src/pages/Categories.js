@@ -7,7 +7,9 @@ export class Categories extends Page {
     return html`
       <div class="container">
         <div class="jumbotron mt-4">
-          <button class="btn btn-primary" onclick="navigateTo" data-target="tierlantin">tierlantin</button>
+          <button class="btn btn-primary" onclick="navigateTo" data-target="clothing">Kleding</button>
+          <button class="btn btn-primary" onclick="navigateTo" data-target="tierlantin">Tierlantijn</button>
+          <button class="btn btn-primary" onclick="navigateTo" data-target="decoration">Decoratie</button>
         </div>
       </div>
     `;

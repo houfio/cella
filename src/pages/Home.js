@@ -7,7 +7,7 @@ export class Home extends Page {
     return html`
       <div class="container">
         <div class="jumbotron mt-4">
-          <button class="btn btn-primary" onclick="navigateTo">Categories</button>
+          <button class="btn btn-primary" onclick="navigateTo">Categorieën</button>
         </div>
       </div>
     `;
