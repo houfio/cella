@@ -21,11 +21,15 @@ export class Wizard extends Page {
     const label = Object.values(this.state.inputData)[this.state.step][0];
 
     return `
-      <div class="form-group">
-        <label for="${id}">${label}</label>
-        <input type="text" class="form-control" id="${id}">
-      </div>
-      <button onclick="nextStep" class="btn btn-primary">Volgende stap</button>
+      ${this.state.step <= Object.keys(this.state.inputData).length ? `
+        <div class="form-group">
+          <label for="${id}">${label}</label>
+          <input type="text" class="form-control" id="${id}">
+        </div>
+        <button onclick="nextStep" class="btn btn-primary">Volgende stap</button>`
+      : `
+        <p>Wil je nieuwe shitty?</p>
+      `}
     `;
   }
 
@@ -77,7 +81,7 @@ export class Wizard extends Page {
         ...this.state.inputData,
         ...extraFields.reduce((previous, current) => ({
           ...previous,
-          [current.key]: current.label
+          [current.key]: [current.label]
         }), {})
       }
     });
