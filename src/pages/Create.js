@@ -9,8 +9,6 @@ import { html } from '../utils/html';
 import { extraFields, fieldLabels } from '../constants';
 import { navigate } from '../utils/navigate';
 
-import './Create.scss';
-
 export class Create extends Page {
   constructor(state, rerender) {
     super({
@@ -42,7 +40,7 @@ export class Create extends Page {
           <label for="${id}">${fieldLabels[id]}</label>
           <input type="text" class="form-control" id="${id}" value="${value}"/>
         </div>
-        <div class="actions">
+        <div class="d-flex justify-content-between">
           <button onclick="previousStep" class="btn btn-primary">
             ${left} ${step ? 'Vorige' : 'Annuleren'}
           </button>
@@ -62,7 +60,7 @@ export class Create extends Page {
             <input type="text" class="form-control" placeholder="Waarde" id="${i}.value" value="${value}" onblur="saveExtraInput"/>
           </div>
         `)}
-        <div class="actions">
+        <div class="d-flex justify-content-between">
           <button onclick="previousStep" class="btn btn-primary">
             ${left} Vorige
           </button>
