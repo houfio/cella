@@ -19,8 +19,11 @@ export class Page {
   unmount() {
   }
 
-  set(state) {
+  set(state, mandatory = true) {
     this.state = state;
-    this.#rerender();
+
+    if (mandatory) {
+      this.#rerender();
+    }
   }
 }

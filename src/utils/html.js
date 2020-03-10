@@ -7,11 +7,10 @@ export function html(strings, ...variables) {
     let dynamic = variables[i];
 
     if (Array.isArray(dynamic)) {
-      dynamic.forEach(console.log);
       dynamic = dynamic.filter(Boolean).join('');
     }
 
-    if (dynamic) {
+    if (dynamic !== false && dynamic !== undefined && dynamic !== null) {
       result += dynamic;
     }
   }
