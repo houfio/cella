@@ -7,7 +7,8 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: resolve(__dirname, 'dist')
+    path: resolve(__dirname, 'dist'),
+    publicPath: '/'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -31,6 +32,7 @@ module.exports = {
     ]
   },
   devServer: {
-    inline: true
+    inline: true,
+    historyApiFallback: true
   }
 };
