@@ -1,5 +1,5 @@
 import { Page } from '../Page';
-import { range } from "../utils/range";
+import { range } from '../utils/range';
 import { html } from '../utils/html';
 
 export class Wizard extends Page {
@@ -28,28 +28,26 @@ export class Wizard extends Page {
       label = Object.values(this.state.inputData)[this.state.step][0];
     }
 
-    return html`
-      ${this.state.step < Object.keys(this.state.inputData).length ? html`
+    return this.state.step < Object.keys(this.state.inputData).length ? html`
+      <div class="form-group">
+        <label for="${id}">${label}</label>
+        <input type="text" class="form-control" id="${id}">
+      </div>
+      <button onclick="nextStep" class="btn btn-primary">Volgende stap</button>`
+    : html`
+      ${range(0, this.state.amountOfInputs).map((i) => html`
         <div class="form-group">
-          <label for="${id}">${label}</label>
-          <input type="text" class="form-control" id="${id}">
+          <label for="name_${i}">Naam</label>
+          <input type="text" class="form-control" id="name_${i}">
+          <label for="value_${i}">Waarde</label>
+          <input type="text" class="form-control" id="value_${i}">
         </div>
-        <button onclick="nextStep" class="btn btn-primary">Volgende stap</button>`
-      : html`
-        ${range(0, this.state.amountOfInputs).map(i => html`
-          <div class="form-group">
-            <label for="name_${i}">Naam</label>
-            <input type="text" class="form-control" id="name_${i}">
-            <label for="value_${i}">Waarde</label>
-            <input type="text" class="form-control" id="value_${i}">
-          </div>
-        `)}
-        <button onclick="addInputField" class="btn btn-primary">Extra veld toevoegen</button>
-        ${this.state.amountOfInputs > 0 && html`
-          <button onclick="removeInputField" class="btn btn-primary">Laatste veld verwijderen</button>
-        `}
-        <button onclick="saveProduct" class="btn btn-primary">Product toevoegen</button>
+      `)}
+      <button onclick="addInputField" class="btn btn-primary">Extra veld toevoegen</button>
+      ${this.state.amountOfInputs > 0 && html`
+        <button onclick="removeInputField" class="btn btn-primary">Laatste veld verwijderen</button>
       `}
+      <button onclick="saveProduct" class="btn btn-primary">Product toevoegen</button>
     `;
   };
 

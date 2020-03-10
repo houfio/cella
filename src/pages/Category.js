@@ -14,6 +14,6 @@ export class Category extends Page {
   }
 
   navigateTo = () => {
-    navigate(`/categories/${this.state.name}/create`);
+    navigate(`/${this.state.name}/create`);
   };
 }

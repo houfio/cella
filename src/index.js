@@ -1,7 +1,7 @@
 import { Home } from './pages/Home';
 import { Category } from './pages/Category';
 import { Wizard } from './pages/Wizard';
-import { Categories } from './pages/Categories';
+import { NotFound } from './pages/NotFound';
 import { navigate } from './utils/navigate';
 import './index.scss';
 
@@ -9,9 +9,9 @@ let current;
 const event = /on(?<event>[a-z]+)="(?<fn>[a-zA-Z]+)"/g;
 const routes = [
   [/^\/$/, Home],
-  [/^\/categories$/, Categories],
-  [/^\/categories\/(?<name>[\w]+)$/, Category],
-  [/^\/categories\/(?<name>[\w]+)\/create$/, Wizard]
+  [/^\/(?<name>[\w]+)$/, Category],
+  [/^\/(?<name>[\w]+)\/create$/, Wizard],
+  [/^.*$/, NotFound]
 ];
 
 function render() {
@@ -27,6 +27,8 @@ function render() {
     current = new page(match.groups || {}, rerender);
 
     rerender(true);
+
+    break;
   }
 }
 
