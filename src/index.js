@@ -1,9 +1,12 @@
+import { generate } from 'shortid';
+
 import { Home } from './pages/Home';
 import { Category } from './pages/Category';
 import { Wizard } from './pages/Wizard';
 import './index.scss';
 
 let current;
+const event = /on(?<event>[a-z]+)="(?<fn>[a-zA-Z]+)"/g;
 const routes = [
   [/^\/$/, Home],
   [/^\/category\/(?<name>[\w]+)$/, Category],
@@ -31,7 +34,25 @@ function rerender(mount = false) {
     return;
   }
 
-  document.body.innerHTML = current.render();
+  let events = [];
+
+  document.body.innerHTML = current.render().replace(event, (full, event, action) => {
+    const id = `data-event-${generate()}`;
+
+    events = [
+      ...events,
+      [id, event, action]
+    ];
+
+    return id;
+  });
+
+  for (const [id, event, action] of events) {
+    const element = document.querySelector(`[${id}]`);
+
+    element.addEventListener(event, () => current[action](element));
+    element.removeAttribute(id);
+  }
 
   if (mount) {
     current.mount();
