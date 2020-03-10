@@ -8,9 +8,7 @@ const routes = [
 ];
 
 function render() {
-  if (current) {
-    current.unmount();
-  }
+  current?.unmount();
 
   for (const [route, page] of routes) {
     const match = window.location.pathname.match(route);
