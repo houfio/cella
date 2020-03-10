@@ -6,7 +6,6 @@ export function html(strings, ...variables) {
 
     let dynamic = variables[i];
 
-    console.log(dynamic);
     if (Array.isArray(dynamic)) {
       dynamic.forEach(console.log);
       dynamic = dynamic.filter(Boolean).join('');
