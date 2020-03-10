@@ -1,11 +1,13 @@
 import { Home } from './pages/Home';
 import { Category } from './pages/Category';
 import './index.scss';
+import { Wizard } from "./pages/Wizard";
 
 let current;
 const routes = [
   [/^\/$/, Home],
-  [/^\/category\/(?<id>[\w]+)$/, Category]
+  [/^\/category\/(?<name>[\w]+)$/, Category],
+  [/^\/wizard\/(?<name>[\w]+)$/, Wizard]
 ];
 
 function render() {
