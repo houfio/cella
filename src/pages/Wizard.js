@@ -1,4 +1,4 @@
-import { Page } from "../Page";
+import { Page } from '../Page';
 
 export class Wizard extends Page {
   constructor(state, rerender) {
@@ -11,7 +11,7 @@ export class Wizard extends Page {
         purchasePrice: ['Inkoopprijs'],
         price: ['Verkoopprijs'],
         stock: ['Voorraad'],
-        minimum_stock: ['Minimum voorraad'],
+        minimum_stock: ['Minimum voorraad']
       }
     }, rerender);
   }
@@ -46,7 +46,7 @@ export class Wizard extends Page {
           {
             key: 'package_amount',
             label: 'Aantal per verpakking'
-          },
+          }
         ];
         break;
       case 'tierlantin':
@@ -66,19 +66,20 @@ export class Wizard extends Page {
           {
             key: 'size',
             label: 'Grootte'
-          },
+          }
         ];
         break;
     }
 
-    extraFields.map(extraField => {
-      this.set({
-        ...this.state,
-        inputData: {
-          ...this.state.inputData,
-          [extraField.key]: [extraField.label]
-        }
-      });
+    this.set({
+      ...this.state,
+      inputData: {
+        ...this.state.inputData,
+        ...extraFields.reduce((previous, current) => ({
+          ...previous,
+          [current.key]: current.label
+        }), {})
+      }
     });
   }
 
