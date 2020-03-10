@@ -1,6 +1,7 @@
 import { Home } from './pages/Home';
 import { Category } from './pages/Category';
 import { Wizard } from './pages/Wizard';
+import { Categories } from './pages/Categories';
 import { navigate } from './utils/navigate';
 import './index.scss';
 
@@ -8,8 +9,9 @@ let current;
 const event = /on(?<event>[a-z]+)="(?<fn>[a-zA-Z]+)"/g;
 const routes = [
   [/^\/$/, Home],
-  [/^\/category\/(?<name>[\w]+)$/, Category],
-  [/^\/category\/(?<name>[\w]+)\/create$/, Wizard]
+  [/^\/categories$/, Categories],
+  [/^\/categories\/(?<name>[\w]+)$/, Category],
+  [/^\/categories\/(?<name>[\w]+)\/create$/, Wizard]
 ];
 
 function render() {

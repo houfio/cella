@@ -1,12 +1,19 @@
 import { Page } from '../Page';
 import { html } from '../utils/html';
+import { navigate } from '../utils/navigate';
 
 export class Category extends Page {
   render() {
     return html`
       <div class="container">
-        ${this.state.name}
+        <button onclick="navigateTo">
+          Create product
+        </button>
       </div>
     `;
   }
+
+  navigateTo = () => {
+    navigate(`/categories/${this.state.name}/create`);
+  };
 }
