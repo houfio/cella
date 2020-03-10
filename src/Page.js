@@ -1,7 +1,9 @@
 export class Page {
+  #rerender;
+
   constructor(state, rerender) {
     this.state = state;
-    this.rerender = rerender;
+    this.#rerender = rerender;
   }
 
   render() {
@@ -16,6 +18,6 @@ export class Page {
 
   set(state) {
     this.state = state;
-    this.rerender();
+    this.#rerender();
   }
 }

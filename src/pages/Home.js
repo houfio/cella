@@ -1,12 +1,6 @@
 import { Page } from '../Page';
 
 export class Home extends Page {
-  constructor(state, rerender) {
-    super(state, rerender);
-
-    this.increase = this.increase.bind(this);
-  }
-
   render() {
     return `
       <span>
@@ -23,11 +17,11 @@ export class Home extends Page {
     console.log('unmount');
   }
 
-  increase() {
+  increase = () => {
     this.set({
       count: (this.state.count || 0) + 1
     });
 
     setTimeout(this.increase, 1000);
-  }
+  };
 }
