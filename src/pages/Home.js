@@ -1,27 +1,18 @@
 import { Page } from '../Page';
+import { navigate } from '../utils/navigate';
 
 export class Home extends Page {
   render() {
     return `
-      <span>
-        ${this.state.count}
-      </span>
+      <div class="container">
+        <div class="jumbotron mt-4">
+          <button class="btn btn-primary" onclick="navigateTo" data-target="tierlantin">tierlantin</button>
+        </div>
+      </div>
     `;
   }
 
-  mount() {
-    this.increase();
-  }
-
-  unmount() {
-    clearTimeout(this.timeout);
-  }
-
-  increase = () => {
-    this.set({
-      count: (this.state.count || 0) + 1
-    });
-
-    this.timeout = setTimeout(this.increase, 1000);
+  navigateTo = (element) => {
+    navigate(`/category/${element.dataset.target}`);
   };
 }

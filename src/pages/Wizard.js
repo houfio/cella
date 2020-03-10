@@ -34,7 +34,7 @@ export class Wizard extends Page {
   }
 
   mount() {
-    let extraFields = [];
+    let extraFields;
 
     switch (this.state.name) {
       case 'decoration':

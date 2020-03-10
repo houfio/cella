@@ -1,6 +1,7 @@
 import { Home } from './pages/Home';
 import { Category } from './pages/Category';
 import { Wizard } from './pages/Wizard';
+import { navigate } from './utils/navigate';
 import './index.scss';
 
 let current;
@@ -59,5 +60,6 @@ function rerender(mount = false) {
   current.update();
 }
 
-window.addEventListener('hashchange', render);
+navigate.subscribe(render);
+window.addEventListener('popstate', render);
 window.addEventListener('load', render);
