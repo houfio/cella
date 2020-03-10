@@ -6,7 +6,7 @@ export class Category extends Page {
   render() {
     return html`
       <div class="container">
-        <button onclick="navigateTo">
+        <button class="btn btn-primary" onclick="navigateTo">
           Product toevoegen
         </button>
       </div>
