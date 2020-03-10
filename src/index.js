@@ -1,5 +1,3 @@
-import { generate } from 'shortid';
-
 import { Home } from './pages/Home';
 import { Category } from './pages/Category';
 import { Wizard } from './pages/Wizard';
@@ -37,7 +35,7 @@ function rerender(mount = false) {
   let events = [];
 
   document.body.innerHTML = current.render().replace(event, (full, event, action) => {
-    const id = `data-event-${generate()}`;
+    const id = `data-event-${events.length}`;
 
     events = [
       ...events,
