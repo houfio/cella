@@ -1,13 +1,13 @@
 import { Home } from './pages/Home';
 import { Category } from './pages/Category';
+import { Wizard } from './pages/Wizard';
 import './index.scss';
-import { Wizard } from "./pages/Wizard";
 
 let current;
 const routes = [
   [/^\/$/, Home],
   [/^\/category\/(?<name>[\w]+)$/, Category],
-  [/^\/wizard\/(?<name>[\w]+)$/, Wizard]
+  [/^\/category\/(?<name>[\w]+)\/create$/, Wizard]
 ];
 
 function render() {
@@ -22,15 +22,22 @@ function render() {
 
     current = new page(match.groups || {}, rerender);
 
-    rerender();
-    current.mount();
+    rerender(true);
   }
 }
 
-function rerender() {
-  if (current) {
-    document.body.innerHTML = current.render();
+function rerender(mount = false) {
+  if (!current) {
+    return;
   }
+
+  document.body.innerHTML = current.render();
+
+  if (mount) {
+    current.mount();
+  }
+
+  current.update();
 }
 
 window.addEventListener('hashchange', render);

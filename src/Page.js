@@ -13,6 +13,9 @@ export class Page {
   mount() {
   }
 
+  update() {
+  }
+
   unmount() {
   }
 

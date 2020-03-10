@@ -22,7 +22,18 @@ export class Wizard extends Page {
         <label for="${Object.keys(this.state.inputData)[this.state.step]}">${Object.values(this.state.inputData)[this.state.step]}</label>
         <input type="text" class="form-control" id="${Object.keys(this.state.inputData)[this.state.step]}">
       </div>
-      <button onclick="this.set({ ...this.state, step: this.state.step + 1 })" class="btn btn-primary">Volgende stap</button>
+      <button id="nextstep" class="btn btn-primary">Volgende stap</button>
     `
   }
+
+  update() {
+    document.getElementById('nextstep').onclick = this.nextStep;
+  }
+
+  nextStep = () => {
+    this.set({
+      ...this.state,
+      step: this.state.step + 1
+    });
+  };
 }
