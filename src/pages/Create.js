@@ -8,11 +8,13 @@ import { Page } from '../Page';
 import { html } from '../utils/html';
 import { extraFields, fieldLabels } from '../constants';
 import { navigate } from '../utils/navigate';
+import { Product } from '../models/Product';
+import { storage } from '../utils/storage';
 
 export class Create extends Page {
-  constructor(state, rerender) {
-    super({
-      ...state,
+  initial(params) {
+    return {
+      ...params,
       step: 0,
       values: {
         name: '',
@@ -23,22 +25,21 @@ export class Create extends Page {
         minimumStock: ''
       },
       extra: []
-    }, rerender);
-  };
+    };
+  }
 
   render() {
     const { step, values, extra } = this.state;
-    const inputs = Object.keys(values);
+    const entries = Object.entries(values);
     let form;
 
-    if (step < inputs.length) {
-      const id = inputs[step];
-      const value = values[id];
+    if (step < entries.length) {
+      const id = entries[step][0];
 
       form = html`
         <div class="form-group">
           <label for="${id}">${fieldLabels[id]}</label>
-          <input type="text" class="form-control" id="${id}" value="${value}"/>
+          <input type="text" class="form-control" id="${id}" value="${entries[step][1]}"/>
         </div>
         <div class="d-flex justify-content-between">
           <button onclick="previousStep" class="btn btn-primary">
@@ -84,7 +85,20 @@ export class Create extends Page {
         <div class="jumbotron mt-4">
           <h1 class="display-4">Product aanmaken</h1>
         </div>
-        ${form}
+        <div class="row">
+          <div class="col-4">
+            <ul class="list-group overflow-hidden text-nowrap">
+              ${entries.map(([key, value], index) => html`
+                <li class="list-group-item list-group-item-action${step === index ? ' active' : ''}" data-step="${index}" onclick="toStep">
+                  ${fieldLabels[key]}: ${value}
+                </li>
+              `)}
+            </ul>
+          </div>
+          <div class="col-8">
+            ${form}
+          </div>
+        </div>
       </div>
     `;
   };
@@ -110,6 +124,25 @@ export class Create extends Page {
     });
   };
 
+  saveValue = () => {
+    const { step, values } = this.state;
+    const keys = Object.keys(values);
+
+    if (step >= keys.length) {
+      return;
+    }
+
+    const id = keys[step];
+
+    this.set({
+      ...this.state,
+      values: {
+        ...values,
+        [id]: document.getElementById(id).value
+      }
+    }, false);
+  };
+
   previousStep = () => {
     const { name, step } = this.state;
 
@@ -119,6 +152,7 @@ export class Create extends Page {
       return;
     }
 
+    this.saveValue();
     this.set({
       ...this.state,
       step: step - 1
@@ -126,16 +160,20 @@ export class Create extends Page {
   };
 
   nextStep = () => {
-    const { step, values } = this.state;
-    const id = Object.keys(values)[step];
+    const { step } = this.state;
 
+    this.saveValue();
     this.set({
       ...this.state,
-      step: step + 1,
-      values: {
-        ...values,
-        [id]: document.getElementById(id).value
-      }
+      step: step + 1
+    });
+  };
+
+  toStep = (element) => {
+    this.saveValue();
+    this.set({
+      ...this.state,
+      step: Number(element.dataset.step)
     });
   };
 
@@ -175,6 +213,15 @@ export class Create extends Page {
   });
 
   saveProduct = () => {
+    const { name, values, extra } = this.state;
+    const product = Object.assign(new Product, values);
 
+    product.extra = extra;
+
+    console.log(product);
+
+    storage.push(name, product);
+
+    navigate(`/${name}`);
   };
 }

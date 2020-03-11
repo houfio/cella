@@ -9,6 +9,7 @@
 @import "~bootstrap/scss/input-group";
 @import "~bootstrap/scss/buttons";
 @import "~bootstrap/scss/jumbotron";
+@import "~bootstrap/scss/list-group";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 
 svg {
@@ -19,4 +20,8 @@ svg {
 
 .btn > svg {
   margin: 0 .3em .15em 0;
+}
+
+li.list-group-item-action:not(.active):hover {
+  cursor: pointer;
 }

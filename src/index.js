@@ -60,8 +60,6 @@ function rerender(mount = false) {
   if (mount) {
     current.mount();
   }
-
-  current.update();
 }
 
 navigate.subscribe(render);
