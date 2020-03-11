@@ -218,10 +218,7 @@ export class Create extends Page {
 
     product.extra = extra;
 
-    console.log(product);
-
     storage.push(name, product);
-
     navigate(`/${name}`);
   };
 }

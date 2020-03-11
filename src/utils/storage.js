@@ -2,7 +2,6 @@ class Storage {
   #getRaw(key) {
     try {
       const result = JSON.parse(localStorage.getItem(key));
-      console.log(result);
 
       if (!Array.isArray(result)) {
         return [];

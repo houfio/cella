@@ -1,6 +1,7 @@
 import { Page } from '../Page';
 import { navigate } from '../utils/navigate';
 import { html } from '../utils/html';
+import { categoryLabels } from '../constants';
 
 export class Home extends Page {
   render() {
@@ -8,9 +9,9 @@ export class Home extends Page {
       <div class="container">
         <div class="jumbotron mt-4">
           <h1 class="display-4">Categorieën</h1>
-          <button class="btn btn-primary" onclick="navigateTo" data-target="clothing">Kleding</button>
-          <button class="btn btn-primary" onclick="navigateTo" data-target="lighting">Tierlantijn</button>
-          <button class="btn btn-primary" onclick="navigateTo" data-target="decoration">Decoratie</button>
+          ${Object.entries(categoryLabels).map(([key, label]) => html`
+            <button class="btn btn-primary" onclick="navigateTo" data-target="${key}">${label}</button>
+          `)}
         </div>
       </div>
     `;

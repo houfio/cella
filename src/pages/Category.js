@@ -3,6 +3,7 @@ import { html } from '../utils/html';
 import { navigate } from '../utils/navigate';
 import { storage } from '../utils/storage';
 import { Product } from '../models/Product';
+import { categoryLabels } from '../constants';
 
 export class Category extends Page {
   render() {
@@ -11,6 +12,9 @@ export class Category extends Page {
 
     return html`
       <div class="container">
+        <div class="jumbotron mt-4">
+          <h1 class="display-4">${categoryLabels[name]}</h1>
+        </div>
         <button class="btn btn-primary" onclick="navigateTo">
           Product toevoegen
         </button>
@@ -21,6 +25,14 @@ export class Category extends Page {
         `)}
       </div>
     `;
+  }
+
+  mount() {
+    const { name } = this.state;
+
+    if (!categoryLabels[name]) {
+      navigate('/');
+    }
   }
 
   navigateTo = () => {
