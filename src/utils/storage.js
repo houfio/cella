@@ -1,5 +1,6 @@
 class Storage {
-  #getRaw = function(key) {
+  // eslint-disable-next-line no-undef
+  #getRaw(key) {
     try {
       const result = JSON.parse(localStorage.getItem(key));
 

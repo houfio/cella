@@ -19,7 +19,7 @@ export class CategoryView extends View {
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Weather</h5>
-                    ${this.controller.weather ? html`
+                    ${this.controller.weather.main ? html`
                       <p class="card-text">
                         Temperatuur: ${this.controller.weather.main.temp} &#8451;
                       </p>

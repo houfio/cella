@@ -11,22 +11,28 @@ export class CategoryController extends Controller {
     return /^\/(?<name>[\w]+)$/;
   }
 
+  initial(params) {
+    return {
+      ...params,
+      city: '',
+      data: {}
+    };
+  }
+
   view() {
     return CategoryView;
   }
 
-  mount() {
+  async mount() {
     const { name } = this.state;
 
     if (!categoryLabels[name]) {
       navigate('/');
     }
 
-    weather.get().then((weatherData) => {
-      this.set({
-        ...this.state,
-        weatherData
-      });
+    this.set({
+      ...this.state,
+      data: await weather.getByLocation()
     });
   }
 
@@ -39,18 +45,16 @@ export class CategoryController extends Controller {
   }
 
   get weather() {
-    return this.state.weatherData;
+    return this.state.data;
   }
 
-  getWeatherByCity = () => {
+  getWeatherByCity = async () => {
     const city = document.getElementById('city').value;
 
-    weather.getCustomCity(city).then((weatherData) => {
-      this.set({
-        ...this.state,
-        city,
-        weatherData
-      });
+    this.set({
+      ...this.state,
+      city,
+      data: await weather.getByCity(city)
     });
   };
 

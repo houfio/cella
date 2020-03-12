@@ -5,11 +5,16 @@ export class Controller {
     throw new Error('Method \'route()\' must be implemented');
   }
 
+  #state;
   #rerender;
 
   constructor(params, rerender) {
-    this.state = this.initial(params);
+    this.#state = this.initial(params);
     this.#rerender = rerender;
+  }
+
+  get state() {
+    return this.#state;
   }
 
   view() {
@@ -29,7 +34,7 @@ export class Controller {
   set(state, mandatory = true) {
     const current = this.state;
 
-    this.state = state;
+    this.#state = state;
 
     if (mandatory && !equal(current, this.state)) {
       this.#rerender();
