@@ -1,8 +1,8 @@
 export const fieldLabels = {
   name: 'Naam',
   description: 'Beschrijving',
-  purchasePrice: 'Inkoopprijs',
-  price: 'Verkoopprijs',
+  purchasePrice: 'Inkoopprijs (ex. BTW)',
+  price: 'Verkoopprijs (ex. BTW)',
   stock: 'Voorraad',
   minimumStock: 'Minimum voorraad',
   color: 'Kleur',
