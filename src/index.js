@@ -1,8 +1,8 @@
-import { navigate } from './utils/navigate';
-import { HomeController } from './controllers/HomeController';
 import { CategoryController } from './controllers/CategoryController';
 import { CreateController } from './controllers/CreateController';
+import { HomeController } from './controllers/HomeController';
 import { NotFoundController } from './controllers/NotFoundController';
+import { navigate } from './utils/navigate';
 import './index.scss';
 
 let current;

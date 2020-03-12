@@ -82,5 +82,5 @@ export class CreateView extends View {
         </div>
       </div>
     `;
-  };
+  }
 }

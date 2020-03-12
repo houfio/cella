@@ -1,5 +1,5 @@
 class Storage {
-  #getRaw(key) {
+  #getRaw = function(key) {
     try {
       const result = JSON.parse(localStorage.getItem(key));
 
@@ -11,7 +11,7 @@ class Storage {
     } catch {
       return [];
     }
-  }
+  };
 
   push(key, obj) {
     let list = this.#getRaw(key);

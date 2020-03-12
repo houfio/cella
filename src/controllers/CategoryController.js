@@ -1,9 +1,9 @@
-import { categoryLabels } from '../constants';
-import { navigate } from '../utils/navigate';
-import { CategoryView } from '../views/CategoryView';
-import { storage } from '../utils/storage';
-import { Product } from '../models/Product';
 import { Controller } from '../Controller';
+import { categoryLabels } from '../constants';
+import { Product } from '../models/Product';
+import { navigate } from '../utils/navigate';
+import { storage } from '../utils/storage';
+import { CategoryView } from '../views/CategoryView';
 
 export class CategoryController extends Controller {
   static get route() {

@@ -2,7 +2,7 @@ import equal from 'fast-deep-equal/es6';
 
 export class Controller {
   static get route() {
-    throw new Error(`Method 'route()' must be implemented`);
+    throw new Error('Method \'route()\' must be implemented');
   }
 
   #rerender;
@@ -13,7 +13,7 @@ export class Controller {
   }
 
   view() {
-    throw new Error(`Method 'view()' must be implemented`);
+    throw new Error('Method \'view()\' must be implemented');
   }
 
   initial(params) {

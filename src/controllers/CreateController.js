@@ -49,7 +49,7 @@ export class CreateController extends Controller {
         }), {})
       }
     });
-  };
+  }
 
   get step() {
     return this.state.step;
@@ -68,7 +68,7 @@ export class CreateController extends Controller {
   }
 
   get addingExtra() {
-    return this.step >= this.values.length
+    return this.step >= this.values.length;
   }
 
   saveValue = () => {

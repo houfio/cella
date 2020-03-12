@@ -1,7 +1,7 @@
-import { HomeView } from '../views/HomeView';
+import { Controller } from '../Controller';
 import { categoryLabels } from '../constants';
 import { navigate } from '../utils/navigate';
-import { Controller } from '../Controller';
+import { HomeView } from '../views/HomeView';
 
 export class HomeController extends Controller {
   static get route() {

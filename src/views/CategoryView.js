@@ -1,9 +1,8 @@
 import left from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg';
 import plus from '@fortawesome/fontawesome-free/svgs/solid/plus.svg';
-
-import { html } from '../utils/html';
-import { categoryLabels } from '../constants';
 import { View } from '../View';
+import { categoryLabels } from '../constants';
+import { html } from '../utils/html';
 
 export class CategoryView extends View {
   render() {

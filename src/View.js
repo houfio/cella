@@ -10,6 +10,6 @@ export class View {
   }
 
   render() {
-    throw new Error(`Method 'render()' must be implemented`);
+    throw new Error('Method \'render()\' must be implemented');
   }
 }
