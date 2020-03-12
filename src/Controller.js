@@ -1,6 +1,10 @@
 import equal from 'fast-deep-equal/es6';
 
-export class Page {
+export class Controller {
+  static get route() {
+    throw new Error(`Method 'route()' must be implemented`);
+  }
+
   #rerender;
 
   constructor(params, rerender) {
@@ -8,12 +12,12 @@ export class Page {
     this.#rerender = rerender;
   }
 
-  initial(params) {
-    return params;
+  view() {
+    throw new Error(`Method 'view()' must be implemented`);
   }
 
-  render() {
-    throw new Error(`Method 'render()' must be implemented`);
+  initial(params) {
+    return params;
   }
 
   mount() {

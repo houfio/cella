@@ -1,30 +1,30 @@
-import { Home } from './pages/Home';
-import { Category } from './pages/Category';
-import { Create } from './pages/Create';
-import { NotFound } from './pages/NotFound';
 import { navigate } from './utils/navigate';
+import { HomeController } from './controllers/HomeController';
+import { CategoryController } from './controllers/CategoryController';
+import { CreateController } from './controllers/CreateController';
+import { NotFoundController } from './controllers/NotFoundController';
 import './index.scss';
 
 let current;
 const event = /on(?<event>[a-z]+)="(?<fn>[a-zA-Z]+)"/g;
-const routes = [
-  [/^\/$/, Home],
-  [/^\/(?<name>[\w]+)$/, Category],
-  [/^\/(?<name>[\w]+)\/create$/, Create],
-  [/^.*$/, NotFound]
+const controllers = [
+  HomeController,
+  CategoryController,
+  CreateController,
+  NotFoundController
 ];
 
 function render() {
   current?.unmount();
 
-  for (const [route, page] of routes) {
-    const match = window.location.pathname.match(route);
+  for (const controller of controllers) {
+    const match = window.location.pathname.match(controller.route);
 
     if (!match) {
       continue;
     }
 
-    current = new page(match.groups || {}, rerender);
+    current = new controller(match.groups || {}, rerender);
 
     rerender(true);
 
@@ -38,8 +38,10 @@ function rerender(mount = false) {
   }
 
   let events = [];
+  const cls = current.view();
+  const view = new cls(current);
 
-  document.body.innerHTML = current.render().replace(event, (full, event, action) => {
+  document.body.innerHTML = view.render().replace(event, (full, event, action) => {
     const id = `data-event-${events.length}`;
 
     events = [
