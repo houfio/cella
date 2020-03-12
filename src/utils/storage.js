@@ -14,21 +14,21 @@ class Storage {
     }
   };
 
-  push(key, obj) {
+  push(key, data) {
     let list = this.#getRaw(key);
 
     localStorage.setItem(key, JSON.stringify([
       ...list,
-      obj
+      data
     ]));
   }
 
-  get(key, cls) {
-    return this.#getRaw(key).map((data) => Object.assign(new cls, data));
+  get(key) {
+    return this.#getRaw(key);
   }
 
-  filter(key, cls, filter) {
-    let list = this.get(key, cls);
+  filter(key, filter) {
+    let list = this.get(key);
 
     localStorage.setItem(key, JSON.stringify(list.filter(filter)));
   }

@@ -1,6 +1,5 @@
 import { Controller } from '../Controller';
 import { extraFields } from '../constants';
-import { Product } from '../models/Product';
 import { navigate } from '../utils/navigate';
 import { storage } from '../utils/storage';
 import { CreateView } from '../views/CreateView';
@@ -161,11 +160,8 @@ export class CreateController extends Controller {
 
   saveProduct = () => {
     const { name, values, extra } = this.state;
-    const product = Object.assign(new Product, values);
 
-    product.extra = extra;
-
-    storage.push(name, product);
+    storage.push(name, { ...values, extra });
     navigate(`/${name}`);
   };
 }

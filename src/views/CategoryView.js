@@ -19,9 +19,9 @@ export class CategoryView extends View {
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Weather</h5>
-                    ${this.controller.weather.main ? html`
+                    ${this.controller.temperature ? html`
                       <p class="card-text">
-                        Temperatuur: ${this.controller.weather.main.temp} &#8451;
+                        Temperatuur: ${this.controller.temperature} &#8451;
                       </p>
                     ` : html`
                       <p class="card-text">
@@ -32,7 +32,7 @@ export class CategoryView extends View {
                     `}
                   </p>
                   <div class="input-group">
-                    <input id="city" type="text" class="form-control" placeholder="Stad"/>
+                    <input id="city" type="text" class="form-control" placeholder="Stad" value="${this.controller.city}"/>
                     <div class="input-group-append">
                       <button class="btn btn-primary" onclick="getWeatherByCity">Update</button>
                     </div>

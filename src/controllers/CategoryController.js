@@ -1,6 +1,5 @@
 import { Controller } from '../Controller';
 import { categoryLabels } from '../constants';
-import { Product } from '../models/Product';
 import { navigate } from '../utils/navigate';
 import { storage } from '../utils/storage';
 import { weather } from '../utils/weather';
@@ -15,7 +14,7 @@ export class CategoryController extends Controller {
     return {
       ...params,
       city: '',
-      data: {}
+      temperature: 0
     };
   }
 
@@ -30,32 +29,48 @@ export class CategoryController extends Controller {
       navigate('/');
     }
 
-    this.set({
-      ...this.state,
-      data: await weather.getByLocation()
-    });
+    try {
+      const { main } = await weather.getByLocation();
+
+      this.set({
+        ...this.state,
+        temperature: main.temp
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   get name() {
     return this.state.name;
   }
 
-  get products() {
-    return storage.get(this.name, Product);
+  get city() {
+    return this.state.city;
   }
 
-  get weather() {
-    return this.state.data;
+  get temperature() {
+    return this.state.temperature;
+  }
+
+  get products() {
+    return storage.get(this.name);
   }
 
   getWeatherByCity = async () => {
     const city = document.getElementById('city').value;
 
-    this.set({
-      ...this.state,
-      city,
-      data: await weather.getByCity(city)
-    });
+    try {
+      const { name, main } = await weather.getByCity(city);
+
+      this.set({
+        ...this.state,
+        city: name,
+        temperature: main.temp
+      });
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   navigateTo = (element) => navigate(element.dataset.target);
