@@ -32,10 +32,9 @@ export class CategoryView extends View {
                     `}
                   </p>
                   <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Stad" aria-label="Username" aria-describedby="basic-addon1">
-  <a href="#" class="btn btn-primary">Update</a>
-</div>
-                  
+                    <input type="text" class="form-control" placeholder="Stad" aria-label="Username" aria-describedby="basic-addon1">
+                    <a href="#" class="btn btn-primary">Update</a>
+                  </div>
                 </div>
               </div>
             </div>
