@@ -1,12 +1,11 @@
-import plus from '@fortawesome/fontawesome-free/svgs/solid/plus.svg';
-import minus from '@fortawesome/fontawesome-free/svgs/solid/minus.svg';
 import left from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg';
 import right from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg';
 import file from '@fortawesome/fontawesome-free/svgs/solid/file.svg';
-
-import { html } from '../utils/html';
-import { fieldLabels } from '../constants';
+import minus from '@fortawesome/fontawesome-free/svgs/solid/minus.svg';
+import plus from '@fortawesome/fontawesome-free/svgs/solid/plus.svg';
 import { View } from '../View';
+import { fieldLabels } from '../constants';
+import { html } from '../utils/html';
 
 export class CreateView extends View {
   render() {

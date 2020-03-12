@@ -1,9 +1,9 @@
+import { Controller } from '../Controller';
 import { extraFields } from '../constants';
-import { navigate } from '../utils/navigate';
 import { Product } from '../models/Product';
+import { navigate } from '../utils/navigate';
 import { storage } from '../utils/storage';
 import { CreateView } from '../views/CreateView';
-import { Controller } from '../Controller';
 
 export class CreateController extends Controller {
   static get route() {

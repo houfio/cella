@@ -1,5 +1,5 @@
-import { html } from '../utils/html';
 import { View } from '../View';
+import { html } from '../utils/html';
 
 export class HomeView extends View {
   render() {
