@@ -30,6 +30,22 @@ export class CategoryController extends Controller {
     });
   }
 
+  getWeatherByCity = () => {
+    this.set({
+      ...this.state,
+      city: document.getElementById('city').value
+    });
+
+    const { city } = this.state;
+
+    weather.getCustomCity(city).then((data) => {
+      this.set({
+        ...this.state,
+        weatherData: data
+      });
+    });
+  };
+
   get name() {
     return this.state.name;
   }
