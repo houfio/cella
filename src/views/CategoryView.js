@@ -17,11 +17,14 @@ export class CategoryView extends View {
         <button class="btn btn-primary" data-target="/${this.controller.name}/create" onclick="navigateTo">
           ${plus} Product toevoegen
         </button>
-        ${this.controller.products.map((product) => html`
-          <div>
-            Product: ${product.name}
-          </div>
-        `)}
+        <div class="form-group">
+          <select class="form-control">
+            <option selected>Selecteer een product</option>
+            ${this.controller.products.map((product) => html`
+              <option>${product.name}</option>
+            `)}
+          </select>
+        </div>
       </div>
     `;
   }
