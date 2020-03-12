@@ -3,6 +3,7 @@ import { categoryLabels } from '../constants';
 import { Product } from '../models/Product';
 import { navigate } from '../utils/navigate';
 import { storage } from '../utils/storage';
+import { weather } from '../utils/weather';
 import { CategoryView } from '../views/CategoryView';
 
 export class CategoryController extends Controller {
@@ -20,6 +21,13 @@ export class CategoryController extends Controller {
     if (!categoryLabels[name]) {
       navigate('/');
     }
+
+    weather.get().then((data) => {
+      this.set({
+        ...this.state,
+        weatherData: data
+      });
+    });
   }
 
   get name() {
@@ -28,6 +36,10 @@ export class CategoryController extends Controller {
 
   get products() {
     return storage.get(this.name, Product);
+  }
+
+  get weather() {
+    return this.state.weatherData;
   }
 
   navigateTo = (element) => navigate(element.dataset.target);
