@@ -22,29 +22,13 @@ export class CategoryController extends Controller {
       navigate('/');
     }
 
-    weather.get().then((data) => {
+    weather.get().then((weatherData) => {
       this.set({
         ...this.state,
-        weatherData: data
+        weatherData
       });
     });
   }
-
-  getWeatherByCity = () => {
-    this.set({
-      ...this.state,
-      city: document.getElementById('city').value
-    });
-
-    const { city } = this.state;
-
-    weather.getCustomCity(city).then((data) => {
-      this.set({
-        ...this.state,
-        weatherData: data
-      });
-    });
-  };
 
   get name() {
     return this.state.name;
@@ -57,6 +41,18 @@ export class CategoryController extends Controller {
   get weather() {
     return this.state.weatherData;
   }
+
+  getWeatherByCity = () => {
+    const city = document.getElementById('city').value;
+
+    weather.getCustomCity(city).then((weatherData) => {
+      this.set({
+        ...this.state,
+        city,
+        weatherData
+      });
+    });
+  };
 
   navigateTo = (element) => navigate(element.dataset.target);
 }

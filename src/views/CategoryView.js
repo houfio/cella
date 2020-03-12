@@ -31,9 +31,11 @@ export class CategoryView extends View {
                       </p>
                     `}
                   </p>
-                  <div class="input-group mb-3">
-                    <input id="city" type="text" class="form-control" placeholder="Stad">
-                    <a href="#" class="btn btn-primary" onclick="getWeatherByCity">Get weather</a>
+                  <div class="input-group">
+                    <input id="city" type="text" class="form-control" placeholder="Stad"/>
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" onclick="getWeatherByCity">Update</button>
+                    </div>
                   </div>
                 </div>
               </div>

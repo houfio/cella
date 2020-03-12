@@ -1,3 +1,3 @@
-export class Product {
+export class Weather {
   main
 }
