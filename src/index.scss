@@ -13,6 +13,10 @@
 @import "~bootstrap/scss/spinners";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 
+body {
+  overflow-x: hidden;
+}
+
 svg {
   width: 1em;
   height: 1em;
@@ -25,4 +29,74 @@ svg {
 
 li.list-group-item-action:not(.active):hover {
   cursor: pointer;
+}
+
+@keyframes fadeInRight {
+  from {
+    transform: translateX(2rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    transform: translateX(-2rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(2rem);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOutLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-2rem);
+    opacity: 0;
+  }
+}
+
+.root {
+  &.forwards {
+    animation: fadeInRight .25s ease;
+
+    &.old {
+      animation-name: fadeOutLeft;
+    }
+  }
+
+  &.backwards {
+    animation: fadeInLeft .25s ease;
+
+    &.old {
+      animation-name: fadeOutRight;
+    }
+  }
+
+  &.old {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
 }

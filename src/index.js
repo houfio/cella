@@ -3,8 +3,10 @@ import { CreateController } from './controllers/CreateController';
 import { HomeController } from './controllers/HomeController';
 import { NotFoundController } from './controllers/NotFoundController';
 import { navigate } from './utils/navigate';
+import { not } from './utils/not';
 import './index.scss';
 
+let roots = [];
 let current;
 const event = /on(?<event>[a-z]+)="(?<fn>[a-zA-Z]+)"/g;
 const controllers = [
@@ -41,7 +43,33 @@ function rerender(mount = false) {
   const cls = current.view();
   const view = new cls(current);
 
-  document.body.innerHTML = view.render().replace(event, (full, event, action) => {
+  if (mount) {
+    const root = document.createElement('div');
+    root.className = 'root forwards';
+
+    document.body.appendChild(root);
+
+    for (const oldRoot of roots) {
+      oldRoot.className = 'root forwards old';
+    }
+
+    roots = [
+      ...roots,
+      root
+    ];
+
+    if (roots.length > 1) {
+      const first = roots[roots.length - 2];
+
+      first.addEventListener('animationend', () => {
+        document.body.removeChild(first);
+
+        roots = roots.filter(not(first));
+      });
+    }
+  }
+
+  roots[roots.length - 1].innerHTML = view.render().replace(event, (full, event, action) => {
     const id = `data-event-${events.length}`;
 
     events = [
