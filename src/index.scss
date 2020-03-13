@@ -31,7 +31,7 @@ li.list-group-item-action:not(.active):hover {
   cursor: pointer;
 }
 
-@keyframes fadeInRight {
+@keyframes forwardsIn {
   from {
     transform: translateX(2rem);
     opacity: 0;
@@ -42,7 +42,18 @@ li.list-group-item-action:not(.active):hover {
   }
 }
 
-@keyframes fadeInLeft {
+@keyframes forwardsOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-2rem);
+    opacity: 0;
+  }
+}
+
+@keyframes backwardsIn {
   from {
     transform: translateX(-2rem);
     opacity: 0;
@@ -53,42 +64,31 @@ li.list-group-item-action:not(.active):hover {
   }
 }
 
-@keyframes fadeOutRight {
+@keyframes backwardsOut {
   from {
     transform: translateX(0);
     opacity: 1;
   }
   to {
     transform: translateX(2rem);
-    opacity: 0;
-  }
-}
-
-@keyframes fadeOutLeft {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(-2rem);
     opacity: 0;
   }
 }
 
 .root {
   &.forwards {
-    animation: fadeInRight .25s ease;
+    animation: forwardsIn .25s ease-out;
 
     &.old {
-      animation-name: fadeOutLeft;
+      animation-name: forwardsOut;
     }
   }
 
   &.backwards {
-    animation: fadeInLeft .25s ease;
+    animation: backwardsIn .25s ease-out;
 
     &.old {
-      animation-name: fadeOutRight;
+      animation-name: backwardsOut;
     }
   }
 
