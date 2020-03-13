@@ -162,7 +162,7 @@ export class CreateController extends Controller {
   saveProduct = () => {
     const { name, values, extra } = this.state;
 
-    storage.push(name, { ...values, extra, id: generate() });
+    storage.push(name, { id: generate(), ...values, extra });
     navigate(`/${name}`);
   };
 }

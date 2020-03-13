@@ -61,6 +61,21 @@ export class CategoryView extends View {
             `)}
           </select>
         </div>
+        <div class="row">
+          <div class="col-md-4">
+            <ul class="list-group">
+              ${Object.keys(this.controller.selectedProduct).map(key => html`
+                ${key === 'extra' ? html`
+                  ${this.controller.selectedProduct.extra.map(extra => html`
+                    <li class="list-group-item">${extra.label}: ${extra.value}</li>
+                  `)}
+                ` : html`
+                  <li class="list-group-item">${key}: ${this.controller.selectedProduct[key]}</li>
+                `}
+              `)}
+            </ul>
+          </div>
+        </div>
       </div>
     `;
   }
