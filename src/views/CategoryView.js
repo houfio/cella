@@ -9,12 +9,12 @@ export class CategoryView extends View {
     return html`
       <div class="container">
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-8">
             <div class="jumbotron mt-4">
               <h1 class="display-4">${categoryLabels[this.controller.name]}</h1>
             </div>
           </div> 
-          <div class="col-md-4">
+          <div class="col-4">
             <div class="jumbotron mt-4">
               <div class="card">
                 <div class="card-body">
