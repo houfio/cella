@@ -14,7 +14,8 @@ export class CategoryController extends Controller {
     return {
       ...params,
       city: '',
-      temperature: 0
+      temperature: 0,
+      locationAvailable: true
     };
   }
 
@@ -34,11 +35,17 @@ export class CategoryController extends Controller {
 
       this.set({
         ...this.state,
-        temperature: main.temp
+        temperature: main.temp,
+        locationAvailable: true
       });
     } catch (e) {
-      console.error(e);
+      this.set({
+        ...this.state,
+        locationAvailable: false
+      });
     }
+
+    console.log(this.state);
   }
 
   get name() {
@@ -50,6 +57,10 @@ export class CategoryController extends Controller {
   }
 
   get temperature() {
+    return this.state.temperature;
+  }
+
+  get locationAvailable() {
     return this.state.temperature;
   }
 

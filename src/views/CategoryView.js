@@ -19,18 +19,23 @@ export class CategoryView extends View {
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Weather</h5>
-                    ${this.controller.temperature ? html`
-                      <p class="card-text">
-                        Temperatuur: ${this.controller.temperature} &#8451;
-                      </p>
+                    ${this.controller.locationAvailable ? html`
+                      ${!this.controller.temperature ? html`
+                        <p class="card-text">
+                          <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </p>
+                      ` : html`
+                        <p class="card-text">
+                          Temperatuur: ${this.controller.temperature} &#8451;
+                        </p>
+                      `}
                     ` : html`
                       <p class="card-text">
-                        <div class="spinner-border text-primary" role="status">
-                          <span class="sr-only">Loading...</span>
-                        </div>
+                        Uw locatie kan niet worden opgehaald. Sta de browser toe om dit te doen!
                       </p>
                     `}
-                  </p>
                   <div class="input-group">
                     <input id="city" type="text" class="form-control" placeholder="Stad" value="${this.controller.city}"/>
                     <div class="input-group-append">
