@@ -54,10 +54,10 @@ export class CategoryView extends View {
           ${plus} Product toevoegen
         </button>
         <div class="form-group">
-          <select class="form-control">
+          <select class="form-control" onchange="selectProduct">
             <option selected>Selecteer een product</option>
             ${this.controller.products.map((product) => html`
-              <option>${product.name}</option>
+              <option value="${product.id}">${product.name}</option>
             `)}
           </select>
         </div>

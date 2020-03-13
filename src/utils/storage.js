@@ -14,6 +14,11 @@ class Storage {
     }
   };
 
+  // eslint-disable-next-line no-undef
+  #getProductRaw(key, id) {
+    return this.#getRaw(key).find(product => product.id === id);
+  }
+
   push(key, data) {
     let list = this.#getRaw(key);
 
@@ -25,6 +30,10 @@ class Storage {
 
   get(key) {
     return this.#getRaw(key);
+  }
+
+  getProduct(key, id) {
+    return this.#getProductRaw(key, id);
   }
 
   filter(key, filter) {

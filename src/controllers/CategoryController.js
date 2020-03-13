@@ -15,7 +15,8 @@ export class CategoryController extends Controller {
       ...params,
       city: '',
       temperature: 0,
-      locationAvailable: true
+      locationAvailable: true,
+      selectedProduct: {}
     };
   }
 
@@ -44,8 +45,6 @@ export class CategoryController extends Controller {
         locationAvailable: false
       });
     }
-
-    console.log(this.state);
   }
 
   get name() {
@@ -68,6 +67,10 @@ export class CategoryController extends Controller {
     return storage.get(this.name);
   }
 
+  get selectedProduct() {
+    return this.state.selectedProduct;
+  }
+
   getWeatherByCity = async () => {
     const city = document.getElementById('city').value;
 
@@ -82,6 +85,13 @@ export class CategoryController extends Controller {
     } catch (e) {
       console.error(e);
     }
+  };
+
+  selectProduct = (product) => {
+    this.set({
+      ...this.state,
+      selectedProduct: storage.getProduct(this.state.name, product.target.value)
+    });
   };
 
   navigateTo = (event) => navigate(event.target.dataset.target);

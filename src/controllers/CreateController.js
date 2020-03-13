@@ -1,3 +1,4 @@
+import { generate } from 'shortid';
 import { Controller } from '../Controller';
 import { extraFields } from '../constants';
 import { navigate } from '../utils/navigate';
@@ -161,7 +162,7 @@ export class CreateController extends Controller {
   saveProduct = () => {
     const { name, values, extra } = this.state;
 
-    storage.push(name, { ...values, extra });
+    storage.push(name, { ...values, extra, id: generate() });
     navigate(`/${name}`);
   };
 }
