@@ -16,5 +16,5 @@ export class HomeController extends Controller {
     return Object.entries(categoryLabels);
   }
 
-  navigateTo = (element) => navigate(`/${element.dataset.target}`);
+  navigateTo = (event) => navigate(`/${event.target.dataset.target}`);
 }

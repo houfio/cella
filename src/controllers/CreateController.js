@@ -115,17 +115,17 @@ export class CreateController extends Controller {
     });
   };
 
-  toStep = (element) => {
+  toStep = (event) => {
     this.saveValue();
     this.set({
       ...this.state,
-      step: Number(element.dataset.step)
+      step: Number(event.target.dataset.step)
     });
   };
 
-  saveExtraInput = (element) => {
+  saveExtraInput = (event) => {
     const { extra } = this.state;
-    const [index, path] = element.id.split('.');
+    const [index, path] = event.target.id.split('.');
 
     this.set({
       ...this.state,
@@ -136,7 +136,7 @@ export class CreateController extends Controller {
 
         return {
           ...input,
-          [path]: element.value
+          [path]: event.target.value
         };
       })
     }, false);

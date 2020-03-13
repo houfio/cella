@@ -83,7 +83,7 @@ function rerender(mount = false) {
   for (const [id, event, action] of events) {
     const element = document.querySelector(`[${id}]`);
 
-    element.addEventListener(event, () => current[action](element));
+    element.addEventListener(event, current[action]);
     element.removeAttribute(id);
   }
 
