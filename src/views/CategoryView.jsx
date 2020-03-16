@@ -71,7 +71,7 @@ export class CategoryView extends View {
               {Object.keys(this.controller.selectedProduct).filter((key) => key !== 'id').map((key) => key !== 'extra' ? (
                 <li className="list-group-item">{fieldLabels[key].label}: {this.controller.selectedProduct[key]}</li>
               ) : this.controller.selectedProduct.extra.map((extra) => (
-                <li className="list-group-item">${extra.label}: ${extra.value}</li>
+                <li className="list-group-item">{extra.label}: {extra.value}</li>
               )))}
             </ul>
           </div>
