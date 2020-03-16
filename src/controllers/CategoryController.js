@@ -1,5 +1,6 @@
 import { Controller } from '../Controller';
 import { categoryLabels } from '../constants';
+import { ImageUpload } from '../utils/imageUpload';
 import { navigate } from '../utils/navigate';
 import { storage } from '../utils/storage';
 import { weather } from '../utils/weather';
@@ -18,6 +19,12 @@ export class CategoryController extends Controller {
       locationAvailable: true,
       selectedProduct: {}
     };
+  }
+
+  onUpload() {
+    const imageUpload = new ImageUpload(document.getElementById('product_image'), document.getElementById('product_canvas'));
+    imageUpload.setListener();
+    imageUpload.clearCanvas();
   }
 
   view() {

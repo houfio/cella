@@ -81,6 +81,10 @@ export class CategoryView extends View {
               `}
             </ul>
           </div>
+          <div class="col-md-6">
+            <input onchange="onUpload" type="file" id="product_image"/>
+            <canvas id="product_canvas" width="400" height="400" style="border:2px solid;"/>
+          </div>
         </div>
       </div>
     `;
