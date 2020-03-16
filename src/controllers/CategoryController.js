@@ -1,14 +1,15 @@
 import { Controller } from '../Controller';
 import { categoryLabels } from '../constants';
 import { Drawer } from '../utils/drawer';
-import { ImageUpload } from '../utils/imageUpload';
 import { navigate } from '../utils/navigate';
 import { storage } from '../utils/storage';
+import { Upload } from '../utils/upload';
 import { weather } from '../utils/weather';
 import { CategoryView } from '../views/CategoryView';
 
 export class CategoryController extends Controller {
-  #drawer = new Drawer();
+  #upload;
+  #drawer;
 
   static get route() {
     return /^\/(?<name>[\w]+)$/;
@@ -24,31 +25,11 @@ export class CategoryController extends Controller {
     };
   }
 
-  onUpload = () => {
-    const imageUpload = new ImageUpload(document.getElementById('product_image'), document.getElementById('product_canvas'));
-    imageUpload.setListener();
-    imageUpload.clearCanvas();
-  };
-
-  mouseMove = (e) => {
-    this.#drawer.draw(e);
-  };
-
-  mouseDown = (e) => {
-    this.#drawer.mouseDown(e);
-  };
-
-  mouseUp = () => {
-    this.#drawer.mouseUp();
-  };
-
   view() {
     return CategoryView;
   }
 
   async mount() {
-    this.#drawer.setCanvas(document.getElementById('product_canvas'));
-
     const { name } = this.state;
 
     if (!categoryLabels[name]) {
@@ -69,6 +50,11 @@ export class CategoryController extends Controller {
         locationAvailable: false
       });
     }
+  }
+
+  update() {
+    this.#upload = new Upload(this.refs['product_canvas']);
+    this.#drawer = new Drawer(this.refs['product_canvas']);
   }
 
   get name() {
@@ -119,4 +105,13 @@ export class CategoryController extends Controller {
   };
 
   navigateTo = (target) => navigate(target);
+
+  onUpload = (e) => {
+    this.#upload.clearCanvas();
+    this.#upload.onUpload(e);
+  };
+
+  mouseMove = (e) => this.#drawer?.draw(e);
+  mouseDown = (e) => this.#drawer?.setPosition(e);
+  mouseUp = (e) => this.#drawer?.setPosition(e);
 }
