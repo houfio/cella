@@ -68,32 +68,51 @@ function rerender(mount = false) {
   }
 
   roots[roots.length - 1].innerHTML = '';
-  renderElement(view.render(), roots[roots.length - 1]);
+  current.refs = renderElement(view.render(), roots[roots.length - 1]);
 
   if (mount) {
     current.mount();
   }
+
+  current.update();
 }
 
 function renderElement(element, container) {
+  let refs = {};
+
   if (Array.isArray(element)) {
-    element.forEach((e) => renderElement(e, container));
-
-    return;
+    return {
+      ...refs,
+      ...element.reduce((previous, current) => ({
+        ...previous,
+        ...renderElement(current, container)
+      }), {})
+    };
   } else if (typeof element.type === 'function') {
-    renderElement(new element.type(element.props).render(), container);
-
-    return;
+    return renderElement(new element.type(element.props).render(), container);
   }
 
   const dom = element.type === 'cella-text' ? document.createTextNode('') : document.createElement(element.type);
 
   for (const key of Object.keys(element.props).filter(not('children'))) {
+    if (key === 'id') {
+      refs[element.props[key]] = dom;
+    }
+
     dom[key.startsWith('on') ? key.toLowerCase() : key] = element.props[key];
   }
 
-  element.props.children.forEach((child) => renderElement(child, dom));
+  refs = {
+    ...refs,
+    ...element.props.children.reduce((previous, current) => ({
+      ...previous,
+      ...renderElement(current, dom)
+    }), {})
+  };
+
   container.appendChild(dom);
+
+  return refs;
 }
 
 navigate.subscribe(render);

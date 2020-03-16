@@ -7,6 +7,7 @@ export class Controller {
 
   #state;
   #rerender;
+  refs = {};
 
   constructor(params, rerender) {
     this.#state = this.initial(params);
@@ -26,6 +27,9 @@ export class Controller {
   }
 
   mount() {
+  }
+
+  update() {
   }
 
   unmount() {
