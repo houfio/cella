@@ -1,10 +1,11 @@
 import Left from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg';
-import Right from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg';
 import File from '@fortawesome/fontawesome-free/svgs/solid/file.svg';
 import Minus from '@fortawesome/fontawesome-free/svgs/solid/minus.svg';
 import Plus from '@fortawesome/fontawesome-free/svgs/solid/plus.svg';
 import { View } from '../View';
 import { fieldLabels } from '../constants';
+import { Input } from '../parts/Input';
+import { JumboTron } from '../parts/JumboTron';
 import { html } from '../utils/html';
 
 export class CreateView extends View {
@@ -15,9 +16,7 @@ export class CreateView extends View {
 
     return (
       <div className="container">
-        <div className="jumbotron mt-4">
-          <h1 className="display-4">Product aanmaken</h1>
-        </div>
+        <JumboTron title="Product aanmaken"/>
         <div className="row">
           <div className="col-4">
             <ul className="list-group overflow-hidden text-nowrap">
@@ -34,18 +33,7 @@ export class CreateView extends View {
           <div className="col-8">
             {!this.controller.addingExtra ? (
               <div>
-                <div className="form-group">
-                  <label htmlFor={id}>{fieldLabels[id].label}</label>
-                  <input id={id} type={fieldLabels[id].type} className="form-control" value={entries[step][1]}/>
-                </div>
-                <div className="d-flex justify-content-between">
-                  <button onClick={this.controller.previousStep} className="btn btn-primary">
-                    <Left/> {step ? 'Vorige' : 'Annuleren'}
-                  </button>
-                  <button onClick={this.controller.nextStep} className="btn btn-primary">
-                    <Right/> Volgende
-                  </button>
-                </div>
+                <Input id={id} step={step} entries={entries} previousStep={this.controller.previousStep} nextStep={this.controller.nextStep}/>
               </div>
             ) : (
               <div>

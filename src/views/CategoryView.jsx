@@ -2,6 +2,7 @@ import Left from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg';
 import Plus from '@fortawesome/fontawesome-free/svgs/solid/plus.svg';
 import { View } from '../View';
 import { categoryLabels, fieldLabels } from '../constants';
+import { JumboTron } from '../parts/JumboTron';
 import { html } from '../utils/html';
 
 export class CategoryView extends View {
@@ -10,9 +11,7 @@ export class CategoryView extends View {
       <div className="container">
         <div className="row">
           <div className="col-8">
-            <div className="jumbotron mt-4">
-              <h1 className="display-4">{categoryLabels[this.controller.name]}</h1>
-            </div>
+            <JumboTron title={categoryLabels[this.controller.name]}/>
           </div>
           <div className="col-4">
             <div className="jumbotron mt-4">
