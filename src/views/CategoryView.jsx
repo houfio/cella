@@ -66,16 +66,22 @@ export class CategoryView extends View {
           </select>
         </div>
         <div className="row">
-          <div className="col-4">
+          <div className="col-3">
             <ul className="list-group">
               {Object.keys(this.controller.selectedProduct).filter((key) => key !== 'id').map((key) => key !== 'extra' ? (
                 <li className="list-group-item">{fieldLabels[key].label}: {this.controller.selectedProduct[key]}</li>
               ) : this.controller.selectedProduct.extra.map((extra) => (
                 <li className="list-group-item">{extra.label}: {extra.value}</li>
               )))}
+              {Object.keys(this.controller.selectedProduct).length > 0 && (
+                <ul className="list-group" style="margin-top: 1rem">
+                  <li className="list-group-item">Inkoopprijs (inc. BTW): {(parseInt(this.controller.selectedProduct.purchasePrice) * 1.21).toFixed(2)}</li>
+                  <li className="list-group-item">Verkoopprijs (inc. BTW): {(parseInt(this.controller.selectedProduct.price) * 1.21).toFixed(2)}</li>
+                </ul>              
+              )}
             </ul>
           </div>
-          <div className="col-6">
+          <div className="col-7">
             <input onChange={this.controller.onUpload} type="file" id="product_image"/>
             <canvas
               onMouseMove={this.controller.mouseMove}
