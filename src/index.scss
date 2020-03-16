@@ -53,44 +53,8 @@ li.list-group-item-action:not(.active):hover {
   }
 }
 
-@keyframes backwardsIn {
-  from {
-    transform: translateX(-2rem);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes backwardsOut {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(2rem);
-    opacity: 0;
-  }
-}
-
 .root {
-  &.forwards {
-    animation: forwardsIn .25s ease-out;
-
-    &.old {
-      animation-name: forwardsOut;
-    }
-  }
-
-  &.backwards {
-    animation: backwardsIn .25s ease-out;
-
-    &.old {
-      animation-name: backwardsOut;
-    }
-  }
+  animation: forwardsIn .25s ease-out;
 
   &.old {
     position: absolute;
@@ -98,5 +62,6 @@ li.list-group-item-action:not(.active):hover {
     height: 100%;
     top: 0;
     left: 0;
+    animation-name: forwardsOut;
   }
 }

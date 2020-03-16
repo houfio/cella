@@ -7,7 +7,6 @@ import { not } from './utils/not';
 import './index.scss';
 
 let roots = [];
-let history = {};
 let current;
 const event = /on(?<event>[a-z]+)="(?<fn>[a-zA-Z]+)"/g;
 const controllers = [
@@ -17,7 +16,7 @@ const controllers = [
   NotFoundController
 ];
 
-function render(direction) {
+function render() {
   current?.unmount();
 
   for (const controller of controllers) {
@@ -29,13 +28,13 @@ function render(direction) {
 
     current = new controller(match.groups || {}, rerender);
 
-    rerender(true, direction);
+    rerender(true);
 
     break;
   }
 }
 
-function rerender(mount = false, direction) {
+function rerender(mount = false) {
   if (!current) {
     return;
   }
@@ -46,12 +45,12 @@ function rerender(mount = false, direction) {
 
   if (mount) {
     const root = document.createElement('div');
-    root.className = `root${direction ? ` ${direction}` : ''}`;
+    root.className = 'root';
 
     document.body.appendChild(root);
 
     for (const oldRoot of roots) {
-      oldRoot.className = `root ${direction} old`;
+      oldRoot.className += ' old';
     }
 
     roots = [
@@ -93,10 +92,6 @@ function rerender(mount = false, direction) {
   }
 }
 
-navigate.subscribe((id, direction) => {
-  history[id] = direction;
-
-  render(direction);
-});
-window.addEventListener('popstate', (event) => render(history[event.data]));
+navigate.subscribe(render);
+window.addEventListener('popstate', render);
 window.addEventListener('load', render);
