@@ -116,17 +116,16 @@ export class CreateController extends Controller {
     });
   };
 
-  toStep = (event) => {
+  toStep = (step) => {
     this.saveValue();
     this.set({
       ...this.state,
-      step: Number(event.target.dataset.step)
+      step
     });
   };
 
-  saveExtraInput = (event) => {
+  saveExtraInput = (event, index, path) => {
     const { extra } = this.state;
-    const [index, path] = event.target.id.split('.');
 
     this.set({
       ...this.state,

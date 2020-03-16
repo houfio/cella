@@ -9,6 +9,16 @@
     "plugin:import/warnings"
   ],
   "parser": "babel-eslint",
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    }
+  },
   "rules": {
     "indent": [
       "error",
@@ -32,6 +42,12 @@
         "alphabetize": {
           "order": "asc"
         }
+      }
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "html"
       }
     ]
   }

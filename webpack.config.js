@@ -10,6 +10,13 @@ module.exports = {
     path: resolve(__dirname, 'dist'),
     publicPath: '/'
   },
+  resolve: {
+    extensions: [
+      '.js',
+      '.jsx',
+      '.json'
+    ]
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html'
@@ -18,7 +25,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: [
           'babel-loader',
@@ -35,7 +42,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        loader: 'svg-inline-loader'
+        loader: 'svg-url-loader'
       }
     ]
   },

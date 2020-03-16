@@ -1,21 +1,23 @@
-export function html(strings, ...variables) {
-  let result = '';
-
-  for (let i = 0; i < variables.length; i++) {
-    result += strings[i];
-
-    let dynamic = variables[i];
-
-    if (Array.isArray(dynamic)) {
-      dynamic = dynamic.filter(Boolean).join('');
-    }
-
-    if (dynamic !== false && dynamic !== undefined && dynamic !== null) {
-      result += dynamic;
-    }
+export function html(type, props, ...children) {
+  if (type === 'cella-fragment') {
+    return mapChildren(children);
   }
 
-  result += strings[strings.length - 1];
+  return {
+    type,
+    props: {
+      ...props,
+      children: mapChildren(children)
+    }
+  };
+}
 
-  return result;
+function mapChildren(children) {
+  return children.map((child) => typeof child === 'object' ? child.type === 'cella-fragment' ? mapChildren(child.props.children) : child : {
+    type: 'cella-text',
+    props: {
+      nodeValue: child,
+      children: []
+    }
+  });
 }

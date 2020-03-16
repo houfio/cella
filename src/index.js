@@ -8,7 +8,6 @@ import './index.scss';
 
 let roots = [];
 let current;
-const event = /on(?<event>[a-z]+)="(?<fn>[a-zA-Z]+)"/g;
 const controllers = [
   HomeController,
   CategoryController,
@@ -39,7 +38,6 @@ function rerender(mount = false) {
     return;
   }
 
-  let events = [];
   const cls = current.view();
   const view = new cls(current);
 
@@ -69,27 +67,29 @@ function rerender(mount = false) {
     }
   }
 
-  roots[roots.length - 1].innerHTML = view.render().replace(event, (full, event, action) => {
-    const id = `data-event-${events.length}`;
-
-    events = [
-      ...events,
-      [id, event, action]
-    ];
-
-    return id;
-  });
-
-  for (const [id, event, action] of events) {
-    const element = document.querySelector(`[${id}]`);
-
-    element.addEventListener(event, current[action]);
-    element.removeAttribute(id);
-  }
+  roots[roots.length - 1].innerHTML = '';
+  renderElement(view.render(), roots[roots.length - 1]);
 
   if (mount) {
     current.mount();
   }
+}
+
+function renderElement(element, container) {
+  if (Array.isArray(element)) {
+    element.forEach((e) => renderElement(e, container));
+
+    return;
+  }
+
+  const dom = element.type === 'cella-text' ? document.createTextNode('') : document.createElement(element.type);
+
+  for (const key of Object.keys(element.props).filter(not('children'))) {
+    dom[key.startsWith('on') ? key.toLowerCase() : key] = element.props[key];
+  }
+
+  element.props.children.forEach((child) => renderElement(child, dom));
+  container.appendChild(dom);
 }
 
 navigate.subscribe(render);

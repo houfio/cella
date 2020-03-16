@@ -101,5 +101,5 @@ export class CategoryController extends Controller {
     });
   };
 
-  navigateTo = (event) => navigate(event.target.dataset.target);
+  navigateTo = (target) => navigate(target);
 }
