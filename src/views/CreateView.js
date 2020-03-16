@@ -18,8 +18,8 @@ export class CreateView extends View {
 
       form = html`
         <div class="form-group">
-          <label for="${id}">${fieldLabels[id]}</label>
-          <input type="text" class="form-control" id="${id}" value="${entries[step][1]}"/>
+          <label for="${id}">${fieldLabels[id].label}</label>
+          <input type="${fieldLabels[id].type}" class="form-control" id="${id}" value="${entries[step][1]}"/>
         </div>
         <div class="d-flex justify-content-between">
           <button onclick="previousStep" class="btn btn-primary">
@@ -70,7 +70,7 @@ export class CreateView extends View {
             <ul class="list-group overflow-hidden text-nowrap">
               ${entries.map(([key, value], index) => html`
                 <li class="list-group-item list-group-item-action${step === index ? ' active' : ''}" data-step="${index}" onclick="toStep">
-                  ${fieldLabels[key]}: ${value}
+                  ${fieldLabels[key].label}: ${value}
                 </li>
               `)}
             </ul>

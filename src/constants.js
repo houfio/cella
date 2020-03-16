@@ -1,14 +1,44 @@
 export const fieldLabels = {
-  name: 'Naam',
-  description: 'Beschrijving',
-  purchasePrice: 'Inkoopprijs (ex. BTW)',
-  price: 'Verkoopprijs (ex. BTW)',
-  stock: 'Voorraad',
-  minimumStock: 'Minimum voorraad',
-  color: 'Kleur',
-  size: 'Grootte',
-  weight: 'gewicht',
-  packageAmount: 'Aantal'
+  name: {
+    label: 'Naam',
+    type: 'text'
+  },
+  description: {
+    label: 'Beschrijving',
+    type: 'text'
+  },
+  purchasePrice: {
+    label: 'Inkoopprijs (ex. BTW)',
+    type: 'number'
+  },
+  price: {
+    label: 'Verkoopprijs (ex. BTW)',
+    type: 'number'
+  },
+  stock: {
+    label: 'Voorraad',
+    type: 'number'
+  },
+  minimumStock: {
+    label: 'Minimum voorraad',
+    type: 'number'
+  },
+  color: {
+    label: 'Kleur',
+    type: 'text'
+  },
+  size: {
+    label: 'Grootte (cm)',
+    type: 'number'
+  },
+  weight: {
+    label: 'Gewicht (gram)',
+    type: 'number'
+  },
+  packageAmount: {
+    label: 'Aantal',
+    type: 'number'
+  }
 };
 
 export const categoryLabels = {
