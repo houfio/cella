@@ -64,3 +64,17 @@ li.list-group-item-action:not(.active):hover {
     animation-name: forwardsOut;
   }
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+
+  &-item {
+    padding-bottom: 100%;
+    background-color: darkgray;
+
+    &:nth-child(odd) {
+      background-color: lightgray;
+    }
+  }
+}
