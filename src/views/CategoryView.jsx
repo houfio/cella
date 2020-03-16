@@ -2,6 +2,7 @@ import { View } from '../View';
 import { categoryLabels, fieldLabels } from '../constants';
 import { Jumbotron } from '../parts/Jumbotron';
 import { html } from '../utils/html';
+import { range } from '../utils/range';
 
 export class CategoryView extends View {
   render() {
@@ -63,7 +64,7 @@ export class CategoryView extends View {
           </select>
         </div>
         <div className="row">
-          <div className="col-3">
+          <div className="col-4">
             <ul className="list-group">
               {Object.keys(this.controller.selectedProduct).filter((key) => key !== 'id').map((key) => key !== 'extra' ? (
                 <li className="list-group-item">{fieldLabels[key].label}: {this.controller.selectedProduct[key]}</li>
@@ -78,7 +79,12 @@ export class CategoryView extends View {
               )}
             </ul>
           </div>
-          <div className="col-7">
+          <div className="col-8">
+            <div className="grid">
+              {range(0, 225).map(() => (
+                <div className="grid-item"/>
+              ))}
+            </div>
             <input onChange={this.controller.onUpload} type="file" id="product_image"/>
             <canvas
               onMouseMove={this.controller.mouseMove}
