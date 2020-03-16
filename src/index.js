@@ -80,6 +80,10 @@ function renderElement(element, container) {
     element.forEach((e) => renderElement(e, container));
 
     return;
+  } else if (typeof element.type === 'function') {
+    renderElement(new element.type(element.props).render(), container);
+
+    return;
   }
 
   const dom = element.type === 'cella-text' ? document.createTextNode('') : document.createElement(element.type);
