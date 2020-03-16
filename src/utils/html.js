@@ -13,11 +13,15 @@ export function html(type, props, ...children) {
 }
 
 function mapChildren(children) {
-  return children.map((child) => typeof child === 'object' ? child.type === 'cella-fragment' ? mapChildren(child.props.children) : child : {
+  return children.filter(isChild).map((child) => typeof child === 'object' ? child.type === 'cella-fragment' ? mapChildren(child.props.children) : child : {
     type: 'cella-text',
     props: {
       nodeValue: child,
       children: []
     }
   });
+}
+
+function isChild(child) {
+  return child || child === 0;
 }
