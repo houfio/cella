@@ -75,8 +75,8 @@ export class CategoryView extends View {
               `)}
               ${Object.keys(this.controller.selectedProduct).length > 0 && html`
                 <ul class="list-group" style="margin-top: 1rem">
-                    <li class="list-group-item">Inkoopprijs (inc. BTW): ${(parseInt(this.controller.selectedProduct.purchasePrice) * 1.21).toFixed(2)}</li>
-                    <li class="list-group-item">Verkoopprijs (inc. BTW): ${(parseInt(this.controller.selectedProduct.price) * 1.21).toFixed(2)}</li>
+                  <li class="list-group-item">Inkoopprijs (inc. BTW): ${(parseInt(this.controller.selectedProduct.purchasePrice) * 1.21).toFixed(2)}</li>
+                  <li class="list-group-item">Verkoopprijs (inc. BTW): ${(parseInt(this.controller.selectedProduct.price) * 1.21).toFixed(2)}</li>
                 </ul>              
               `}
             </ul>
