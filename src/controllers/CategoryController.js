@@ -20,7 +20,7 @@ export class CategoryController extends Controller {
       ...params,
       city: '',
       temperature: 0,
-      locationAvailable: true,
+      locationAvailable: false,
       selectedProduct: {}
     };
   }
@@ -37,6 +37,15 @@ export class CategoryController extends Controller {
     }
 
     try {
+      const hasPermission = await navigator.permissions.query({
+        name: 'geolocation'
+      });
+
+      this.set({
+        ...this.state,
+        locationAvailable: hasPermission.state === 'granted'
+      });
+
       const { main } = await weather.getByLocation();
 
       this.set({
@@ -45,6 +54,8 @@ export class CategoryController extends Controller {
         locationAvailable: true
       });
     } catch (e) {
+      alert('Er ging iets fout tijdens het ophalen van het weer voor uw locatie');
+
       this.set({
         ...this.state,
         locationAvailable: false
@@ -70,7 +81,7 @@ export class CategoryController extends Controller {
   }
 
   get locationAvailable() {
-    return this.state.temperature;
+    return this.state.locationAvailable;
   }
 
   get products() {
@@ -82,6 +93,11 @@ export class CategoryController extends Controller {
   }
 
   getWeatherByCity = async () => {
+    this.set({
+      ...this.state,
+      temperature: 0
+    });
+
     const city = document.getElementById('city').value;
 
     try {
@@ -93,7 +109,7 @@ export class CategoryController extends Controller {
         temperature: main.temp
       });
     } catch (e) {
-      console.error(e);
+      alert(`Er ging iets fout tijdens het ophalen van het weer voor de plaats ${city}`);
     }
   };
 
