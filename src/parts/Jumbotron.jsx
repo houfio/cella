@@ -1,7 +1,7 @@
 import { Part } from '../Part';
 import { html } from '../utils/html';
 
-export class JumboTron extends Part {
+export class Jumbotron extends Part {
   render() {
     const { title, children } = this.props;
 

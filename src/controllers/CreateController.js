@@ -80,12 +80,13 @@ export class CreateController extends Controller {
     }
 
     const id = keys[step];
+    const value = document.getElementById(id).value;
 
     this.set({
       ...this.state,
       values: {
         ...values,
-        [id]: document.getElementById(id).value
+        [id]: value
       }
     }, false);
   };

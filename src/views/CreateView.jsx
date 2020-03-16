@@ -1,11 +1,7 @@
-import Left from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg';
-import File from '@fortawesome/fontawesome-free/svgs/solid/file.svg';
-import Minus from '@fortawesome/fontawesome-free/svgs/solid/minus.svg';
-import Plus from '@fortawesome/fontawesome-free/svgs/solid/plus.svg';
 import { View } from '../View';
 import { fieldLabels } from '../constants';
 import { Input } from '../parts/Input';
-import { JumboTron } from '../parts/JumboTron';
+import { Jumbotron } from '../parts/Jumbotron';
 import { html } from '../utils/html';
 
 export class CreateView extends View {
@@ -16,7 +12,7 @@ export class CreateView extends View {
 
     return (
       <div className="container">
-        <JumboTron title="Product aanmaken"/>
+        <Jumbotron title="Product aanmaken"/>
         <div className="row">
           <div className="col-4">
             <ul className="list-group overflow-hidden text-nowrap">
@@ -60,18 +56,18 @@ export class CreateView extends View {
                 ))}
                 <div className="d-flex justify-content-between">
                   <button onClick={this.controller.previousStep} className="btn btn-primary">
-                    <Left/> Vorige
+                    Vorige
                   </button>
                   <div>
                     <button onClick={this.controller.removeInputField} className="btn btn-primary" disabled={Boolean(this.controller.extraCount)}>
-                      <Minus/> Verwijderen
+                      Verwijderen
                     </button>
                     <button onClick={this.controller.addInputField} className="btn btn-primary">
-                      <Plus/> Toevoegen
+                      Toevoegen
                     </button>
                   </div>
                   <button onClick={this.controller.saveProduct} className="btn btn-primary">
-                    <File/> Opslaan
+                    Opslaan
                   </button>
                 </div>
               </div>

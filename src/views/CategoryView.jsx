@@ -1,8 +1,6 @@
-import Left from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg';
-import Plus from '@fortawesome/fontawesome-free/svgs/solid/plus.svg';
 import { View } from '../View';
 import { categoryLabels, fieldLabels } from '../constants';
-import { JumboTron } from '../parts/JumboTron';
+import { Jumbotron } from '../parts/Jumbotron';
 import { html } from '../utils/html';
 
 export class CategoryView extends View {
@@ -11,7 +9,7 @@ export class CategoryView extends View {
       <div className="container">
         <div className="row">
           <div className="col-8">
-            <JumboTron title={categoryLabels[this.controller.name]}/>
+            <Jumbotron title={categoryLabels[this.controller.name]}/>
           </div>
           <div className="col-4">
             <div className="jumbotron mt-4">
@@ -51,10 +49,10 @@ export class CategoryView extends View {
           </div>
         </div>
         <button className="btn btn-primary" onClick={() => this.controller.navigateTo('/')}>
-          <Left/> Terug
+          Terug
         </button>
         <button className="btn btn-primary" onClick={() => this.controller.navigateTo(`/${this.controller.name}/create`)}>
-          <Plus/> Product toevoegen
+          Product toevoegen
         </button>
         <div className="form-group">
           <select className="form-control" onChange={this.controller.selectProduct}>
@@ -76,7 +74,7 @@ export class CategoryView extends View {
                 <ul className="list-group" style="margin-top: 1rem">
                   <li className="list-group-item">Inkoopprijs (inc. BTW): {(parseInt(this.controller.selectedProduct.purchasePrice) * 1.21).toFixed(2)}</li>
                   <li className="list-group-item">Verkoopprijs (inc. BTW): {(parseInt(this.controller.selectedProduct.price) * 1.21).toFixed(2)}</li>
-                </ul>              
+                </ul>
               )}
             </ul>
           </div>

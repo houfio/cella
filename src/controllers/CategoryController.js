@@ -100,7 +100,7 @@ export class CategoryController extends Controller {
   selectProduct = (product) => {
     this.set({
       ...this.state,
-      selectedProduct: storage.getProduct(this.state.name, product.target.value)
+      selectedProduct: storage.getById(this.state.name, product.target.value)
     });
   };
 
