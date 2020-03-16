@@ -1,8 +1,8 @@
-import left from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg';
-import right from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg';
-import file from '@fortawesome/fontawesome-free/svgs/solid/file.svg';
-import minus from '@fortawesome/fontawesome-free/svgs/solid/minus.svg';
-import plus from '@fortawesome/fontawesome-free/svgs/solid/plus.svg';
+import Left from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg';
+import Right from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg';
+import File from '@fortawesome/fontawesome-free/svgs/solid/file.svg';
+import Minus from '@fortawesome/fontawesome-free/svgs/solid/minus.svg';
+import Plus from '@fortawesome/fontawesome-free/svgs/solid/plus.svg';
 import { View } from '../View';
 import { fieldLabels } from '../constants';
 import { html } from '../utils/html';
@@ -40,10 +40,10 @@ export class CreateView extends View {
                 </div>
                 <div className="d-flex justify-content-between">
                   <button onClick={this.controller.previousStep} className="btn btn-primary">
-                    {left} {step ? 'Vorige' : 'Annuleren'}
+                    <Left/> {step ? 'Vorige' : 'Annuleren'}
                   </button>
                   <button onClick={this.controller.nextStep} className="btn btn-primary">
-                    {right} Volgende
+                    <Right/> Volgende
                   </button>
                 </div>
               </div>
@@ -72,18 +72,18 @@ export class CreateView extends View {
                 ))}
                 <div className="d-flex justify-content-between">
                   <button onClick={this.controller.previousStep} className="btn btn-primary">
-                    {left} Vorige
+                    <Left/> Vorige
                   </button>
                   <div>
                     <button onClick={this.controller.removeInputField} className="btn btn-primary" disabled={Boolean(this.controller.extraCount)}>
-                      {minus} Verwijderen
+                      <Minus/> Verwijderen
                     </button>
                     <button onClick={this.controller.addInputField} className="btn btn-primary">
-                      {plus} Toevoegen
+                      <Plus/> Toevoegen
                     </button>
                   </div>
                   <button onClick={this.controller.saveProduct} className="btn btn-primary">
-                    {file} Opslaan
+                    <File/> Opslaan
                   </button>
                 </div>
               </div>

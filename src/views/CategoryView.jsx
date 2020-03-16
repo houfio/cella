@@ -1,5 +1,5 @@
-import left from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg';
-import plus from '@fortawesome/fontawesome-free/svgs/solid/plus.svg';
+import Left from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg';
+import Plus from '@fortawesome/fontawesome-free/svgs/solid/plus.svg';
 import { View } from '../View';
 import { categoryLabels, fieldLabels } from '../constants';
 import { html } from '../utils/html';
@@ -52,10 +52,10 @@ export class CategoryView extends View {
           </div>
         </div>
         <button className="btn btn-primary" onClick={() => this.controller.navigateTo('/')}>
-          {left} Terug
+          <Left/> Terug
         </button>
         <button className="btn btn-primary" onClick={() => this.controller.navigateTo(`/${this.controller.name}/create`)}>
-          {plus} Product toevoegen
+          <Plus/> Product toevoegen
         </button>
         <div className="form-group">
           <select className="form-control" onChange={this.controller.selectProduct}>

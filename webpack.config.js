@@ -42,7 +42,32 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        loader: 'svg-url-loader'
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              configFile: resolve(__dirname, '.babelrc.json')
+            }
+          },
+          {
+            loader: '@svgr/webpack',
+            options: {
+              template: ({ template }, options, { componentName, props, jsx, exports }) => template.ast`
+                import { Part } from '../../../../../src/Part';
+                import { html } from '../../../../../src/utils/html';
+                export class ${componentName} extends Part {
+                  render() {
+                    const ${props} = this.props;
+                    
+                    return ${jsx};
+                  }
+                }
+                ${exports}
+              `,
+              babel: false
+            }
+          }
+        ]
       }
     ]
   },
