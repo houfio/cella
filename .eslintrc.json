@@ -5,11 +5,16 @@
   },
   "extends": [
     "eslint:recommended",
+    "plugin:react/recommended",
     "plugin:import/errors",
     "plugin:import/warnings"
   ],
   "parser": "babel-eslint",
   "settings": {
+    "react": {
+      "pragma": "html",
+      "version": "latest"
+    },
     "import/resolver": {
       "node": {
         "extensions": [
@@ -49,6 +54,7 @@
       {
         "varsIgnorePattern": "html"
       }
-    ]
+    ],
+    "react/jsx-key": "off"
   }
 }
