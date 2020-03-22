@@ -6,6 +6,8 @@ import { range } from '../utils/range';
 
 export class CategoryView extends View {
   render() {
+    const product = this.controller.product || {};
+
     return (
       <div className="container">
         <div className="row">
@@ -57,27 +59,32 @@ export class CategoryView extends View {
         </button>
         <div className="form-group">
           <select className="form-control" onChange={this.controller.selectProduct}>
-            <option selected>Selecteer een product</option>
+            <option>Selecteer een product...</option>
             {this.controller.products.map((product) => (
-              <option value={product.id}>{product.name}</option>
+              <option
+                selected={this.controller.product?.id === product.id}
+                value={product.id}
+              >
+                {product.name}
+              </option>
             ))}
           </select>
         </div>
         <div className="row">
           <div className="col-4">
             <ul className="list-group">
-              {Object.keys(this.controller.selectedProduct).filter((key) => key !== 'id').map((key) => key !== 'extra' ? (
-                <li className="list-group-item">{fieldLabels[key].label}: {this.controller.selectedProduct[key]}</li>
-              ) : this.controller.selectedProduct.extra.map((extra) => (
-                <li className="list-group-item">{extra.label}: {extra.value}</li>
+              {Object.entries(product).filter(([key]) => key !== 'id').map(([key, value]) => key !== 'extra' ? (
+                <li className="list-group-item">{fieldLabels[key].label}: {value}</li>
+              ) : value.map(({ label, value: v }) => (
+                <li className="list-group-item">{label}: {v}</li>
               )))}
-              {Object.keys(this.controller.selectedProduct).length > 0 && (
-                <ul className="list-group" style="margin-top: 1rem">
-                  <li className="list-group-item">Inkoopprijs (inc. BTW): {(parseInt(this.controller.selectedProduct.purchasePrice) * 1.21).toFixed(2)}</li>
-                  <li className="list-group-item">Verkoopprijs (inc. BTW): {(parseInt(this.controller.selectedProduct.price) * 1.21).toFixed(2)}</li>
-                </ul>
-              )}
             </ul>
+            {Object.keys(product).length > 0 && (
+              <ul className="list-group mt-2">
+                <li className="list-group-item">Inkoopprijs (inc. BTW): {(parseInt(product.purchasePrice || 0) * 1.21).toFixed(2)}</li>
+                <li className="list-group-item">Verkoopprijs (inc. BTW): {(parseInt(product.price || 0) * 1.21).toFixed(2)}</li>
+              </ul>
+            )}
           </div>
           <div className="col-8">
             <div className="grid">

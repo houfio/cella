@@ -19,8 +19,8 @@ export class CategoryController extends Controller {
     return {
       ...params,
       city: this.cities[0],
-      temperature: 0,
-      selectedProduct: {}
+      temperature: undefined,
+      productId: undefined
     };
   }
 
@@ -59,8 +59,8 @@ export class CategoryController extends Controller {
     return storage.get(this.name);
   }
 
-  get selectedProduct() {
-    return this.state.selectedProduct;
+  get product() {
+    return storage.getById(this.state.name, this.state.productId);
   }
 
   get cities() {
@@ -112,7 +112,7 @@ export class CategoryController extends Controller {
   selectProduct = (product) => {
     this.set({
       ...this.state,
-      selectedProduct: storage.getById(this.state.name, product.target.value)
+      productId: product.target.value
     });
   };
 
