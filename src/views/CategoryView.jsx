@@ -6,7 +6,7 @@ import { range } from '../utils/range';
 
 export class CategoryView extends View {
   render() {
-    const product = this.controller.product || {};
+    const product = this.controller.product;
 
     return (
       <div className="container">
@@ -67,18 +67,29 @@ export class CategoryView extends View {
         </div>
         <div className="row">
           <div className="col-4">
-            <ul className="list-group">
-              {Object.entries(product).filter(([key]) => key !== 'id').map(([key, value]) => key !== 'extra' ? (
-                <li className="list-group-item">{fieldLabels[key].label}: {value}</li>
-              ) : value.map(({ label, value: v }) => (
-                <li className="list-group-item">{label}: {v}</li>
-              )))}
-            </ul>
-            {Object.keys(product).length > 0 && (
-              <ul className="list-group mt-2">
-                <li className="list-group-item">Inkoopprijs (inc. BTW): {(parseInt(product.purchasePrice || 0) * 1.21).toFixed(2)}</li>
-                <li className="list-group-item">Verkoopprijs (inc. BTW): {(parseInt(product.price || 0) * 1.21).toFixed(2)}</li>
-              </ul>
+            {product && (
+              <>
+                <ul className="list-group">
+                  {Object.entries(product).filter(([key]) => key !== 'id').map(([key, value]) => key !== 'extra' ? (
+                    <li className="list-group-item">{fieldLabels[key].label}: {value}</li>
+                  ) : value.map(({ label, value: v }) => (
+                    <li className="list-group-item">{label}: {v}</li>
+                  )))}
+                </ul>
+                <ul className="list-group mt-2">
+                  <li className="list-group-item">Inkoopprijs (inc. BTW): {(parseInt(product.purchasePrice || 0) * 1.21).toFixed(2)}</li>
+                  <li className="list-group-item">Verkoopprijs (inc. BTW): {(parseInt(product.price || 0) * 1.21).toFixed(2)}</li>
+                </ul>
+                <input onChange={this.controller.onUpload} type="file" id="product_image"/>
+                <canvas
+                  onMouseMove={this.controller.handleDraw}
+                  onMouseDown={this.controller.handleDraw}
+                  id="product_canvas"
+                  className="border border-dark"
+                  width="348"
+                  height="348"
+                />
+              </>
             )}
           </div>
           <div className="col-8">
@@ -87,15 +98,6 @@ export class CategoryView extends View {
                 <div className="grid-item"/>
               ))}
             </div>
-            <input onChange={this.controller.onUpload} type="file" id="product_image"/>
-            <canvas
-              onMouseMove={this.controller.handleDraw}
-              onMouseDown={this.controller.handleDraw}
-              id="product_canvas"
-              width="400"
-              height="400"
-              style="border: 2px solid black"
-            />
           </div>
         </div>
       </div>

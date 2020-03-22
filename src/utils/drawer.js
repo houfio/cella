@@ -1,14 +1,20 @@
 export class Drawer {
+  #canvas;
   #context;
   #x = 0;
   #y = 0;
 
   constructor(canvas) {
+    this.#canvas = canvas;
     this.#context = canvas.getContext('2d');
     this.#context.lineWidth = 5;
     this.#context.lineJoin = 'round';
     this.#context.lineCap = 'round';
     this.#context.strokeStyle = 'orange';
+  }
+
+  get base64() {
+    return this.#canvas.toDataURL();
   }
 
   // eslint-disable-next-line no-undef

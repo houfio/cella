@@ -39,8 +39,10 @@ export class CategoryController extends Controller {
   }
 
   update() {
-    this.#upload = new Upload(this.refs['product_canvas']);
-    this.#drawer = new Drawer(this.refs['product_canvas']);
+    const ref = this.refs['product_canvas'];
+
+    this.#upload = ref ? new Upload(ref) : undefined;
+    this.#drawer = ref ? new Drawer(ref) : undefined;
   }
 
   get name() {
