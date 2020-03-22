@@ -89,9 +89,8 @@ export class CategoryView extends View {
             </div>
             <input onChange={this.controller.onUpload} type="file" id="product_image"/>
             <canvas
-              onMouseMove={this.controller.mouseMove}
-              onMouseUp={this.controller.mouseUp}
-              onMouseDown={this.controller.mouseDown}
+              onMouseMove={this.controller.handleDraw}
+              onMouseDown={this.controller.handleDraw}
               id="product_canvas"
               width="400"
               height="400"

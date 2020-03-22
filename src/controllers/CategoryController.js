@@ -123,7 +123,5 @@ export class CategoryController extends Controller {
     this.#upload.onUpload(e);
   };
 
-  mouseMove = (e) => this.#drawer?.draw(e);
-  mouseDown = (e) => this.#drawer?.setPosition(e);
-  mouseUp = (e) => this.#drawer?.setPosition(e);
+  handleDraw = (e) => this.#drawer?.draw(e);
 }
