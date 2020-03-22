@@ -28,11 +28,9 @@ export class CreateView extends View {
           </div>
           <div className="col-8">
             {!this.controller.addingExtra ? (
-              <div>
-                <Input id={id} step={step} entries={entries} previousStep={this.controller.previousStep} nextStep={this.controller.nextStep}/>
-              </div>
+              <Input id={id} step={step} entries={entries} previousStep={this.controller.previousStep} nextStep={this.controller.nextStep}/>
             ) : (
-              <div>
+              <>
                 <h3>
                   Extra velden
                 </h3>
@@ -59,7 +57,7 @@ export class CreateView extends View {
                     Vorige
                   </button>
                   <div>
-                    <button onClick={this.controller.removeInputField} className="btn btn-primary" disabled={Boolean(this.controller.extraCount)}>
+                    <button onClick={this.controller.removeInputField} className="btn btn-primary" disabled={Boolean(!this.controller.extraCount)}>
                       Verwijderen
                     </button>
                     <button onClick={this.controller.addInputField} className="btn btn-primary">
@@ -70,7 +68,7 @@ export class CreateView extends View {
                     Opslaan
                   </button>
                 </div>
-              </div>
+              </>
             )}
           </div>
         </div>
