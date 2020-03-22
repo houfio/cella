@@ -34,18 +34,13 @@ export class CategoryView extends View {
                       Temperatuur: {this.controller.temperature} &#8451;
                     </p>
                   )}
-                  <div className="input-group">
-                    <select id="city" className="form-control">
-                      {this.controller.cities.map((city) => (
-                        <option selected={this.controller.city === city}>
-                          {city}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="input-group-append">
-                      <button className="btn btn-primary" onClick={this.controller.getWeather}>Update</button>
-                    </div>
-                  </div>
+                  <select id="city" className="form-control" onChange={this.controller.getWeather}>
+                    {this.controller.cities.map((city) => (
+                      <option selected={this.controller.city === city}>
+                        {city}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>
