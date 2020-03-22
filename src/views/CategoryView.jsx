@@ -17,31 +17,31 @@ export class CategoryView extends View {
               <div className="card">
                 <div className="card-body">
                   <h5 className="card-title">Weather</h5>
-                  {this.controller.locationAvailable ? this.controller.temperature ? (
-                    <p className="card-text">
-                      Temperatuur: {this.controller.temperature} &#8451;
-                    </p>
-                  ) : (
+                  {this.controller.temperature === undefined ? (
                     <p className="card-text">
                       <div className="spinner-border text-primary" role="status">
                         <span className="sr-only">Loading...</span>
                       </div>
                     </p>
-                  ) : (
+                  ) : this.controller.temperature === null ? (
                     <p className="card-text">
                       Uw locatie kan niet worden opgehaald. Sta de browser toe om dit te doen!
                     </p>
+                  ) : (
+                    <p className="card-text">
+                      Temperatuur: {this.controller.temperature} &#8451;
+                    </p>
                   )}
                   <div className="input-group">
-                    <input
-                      id="city"
-                      type="text"
-                      className="form-control"
-                      placeholder="Stad"
-                      value={this.controller.city}
-                    />
+                    <select id="city" className="form-control">
+                      {this.controller.cities.map((city) => (
+                        <option selected={this.controller.city === city}>
+                          {city}
+                        </option>
+                      ))}
+                    </select>
                     <div className="input-group-append">
-                      <button className="btn btn-primary" onClick={this.controller.getWeatherByCity}>Update</button>
+                      <button className="btn btn-primary" onClick={this.controller.getWeather}>Update</button>
                     </div>
                   </div>
                 </div>

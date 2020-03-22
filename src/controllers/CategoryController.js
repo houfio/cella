@@ -18,9 +18,8 @@ export class CategoryController extends Controller {
   initial(params) {
     return {
       ...params,
-      city: '',
+      city: this.cities[0],
       temperature: 0,
-      locationAvailable: false,
       selectedProduct: {}
     };
   }
@@ -36,31 +35,7 @@ export class CategoryController extends Controller {
       navigate('/');
     }
 
-    try {
-      const hasPermission = await navigator.permissions.query({
-        name: 'geolocation'
-      });
-
-      this.set({
-        ...this.state,
-        locationAvailable: hasPermission.state === 'granted'
-      });
-
-      const { main } = await weather.getByLocation();
-
-      this.set({
-        ...this.state,
-        temperature: main.temp,
-        locationAvailable: true
-      });
-    } catch (e) {
-      alert('Er ging iets fout tijdens het ophalen van het weer voor uw locatie');
-
-      this.set({
-        ...this.state,
-        locationAvailable: false
-      });
-    }
+    this.getWeather();
   }
 
   update() {
@@ -80,10 +55,6 @@ export class CategoryController extends Controller {
     return this.state.temperature;
   }
 
-  get locationAvailable() {
-    return this.state.locationAvailable;
-  }
-
   get products() {
     return storage.get(this.name);
   }
@@ -92,24 +63,49 @@ export class CategoryController extends Controller {
     return this.state.selectedProduct;
   }
 
-  getWeatherByCity = async () => {
+  get cities() {
+    return [
+      'Huidige locatie',
+      'Maastricht',
+      'Weert',
+      'Eindhoven',
+      '\'s-Hertogenbosch',
+      'Utrecht',
+      'Amsterdam'
+    ];
+  }
+
+  getWeather = async () => {
+    const city = this.refs['city'].value;
+    const current = city === this.cities[0];
+
     this.set({
       ...this.state,
-      temperature: 0
+      city,
+      temperature: undefined
     });
 
-    const city = document.getElementById('city').value;
+    if (!current) {
+      const { main } = await weather.getByCity(city);
+
+      return this.set({
+        ...this.state,
+        temperature: main.temp
+      });
+    }
 
     try {
-      const { name, main } = await weather.getByCity(city);
+      const { main } = await weather.getByLocation();
 
       this.set({
         ...this.state,
-        city: name,
         temperature: main.temp
       });
-    } catch (e) {
-      alert(`Er ging iets fout tijdens het ophalen van het weer voor de plaats ${city}`);
+    } catch {
+      this.set({
+        ...this.state,
+        temperature: null
+      });
     }
   };
 
