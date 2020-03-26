@@ -1,5 +1,6 @@
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -20,7 +21,8 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html'
-    })
+    }),
+    new FaviconsWebpackPlugin()
   ],
   module: {
     rules: [
