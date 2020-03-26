@@ -2,7 +2,7 @@ import { View } from '../View';
 import { fieldLabels } from '../constants';
 import { Input } from '../parts/Input';
 import { Jumbotron } from '../parts/Jumbotron';
-import { html } from '../utils/html';
+import { jsx } from '../utils/jsx';
 
 export class CreateView extends View {
   render() {

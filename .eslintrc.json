@@ -15,7 +15,7 @@
   },
   "settings": {
     "react": {
-      "pragma": "html",
+      "pragma": "jsx",
       "version": "latest"
     },
     "import/resolver": {

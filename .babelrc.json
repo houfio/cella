@@ -9,7 +9,7 @@
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-private-methods",
     ["@babel/plugin-transform-react-jsx", {
-      "pragma": "html",
+      "pragma": "jsx",
       "pragmaFrag": "'cella-fragment'"
     }]
   ]

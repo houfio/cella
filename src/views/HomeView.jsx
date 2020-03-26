@@ -1,6 +1,6 @@
 import { View } from '../View';
 import { Jumbotron } from '../parts/Jumbotron';
-import { html } from '../utils/html';
+import { jsx } from '../utils/jsx';
 
 export class HomeView extends View {
   render() {

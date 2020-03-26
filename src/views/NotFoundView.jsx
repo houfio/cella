@@ -1,5 +1,5 @@
 import { View } from '../View';
-import { html } from '../utils/html';
+import { jsx } from '../utils/jsx';
 
 export class NotFoundView extends View {
   render() {

@@ -1,5 +1,5 @@
 import { Part } from '../Part';
-import { html } from '../utils/html';
+import { jsx } from '../utils/jsx';
 
 export class Jumbotron extends Part {
   render() {

@@ -1,7 +1,7 @@
 import { View } from '../View';
 import { categoryLabels, fieldLabels } from '../constants';
 import { Jumbotron } from '../parts/Jumbotron';
-import { html } from '../utils/html';
+import { jsx } from '../utils/jsx';
 import { range } from '../utils/range';
 
 export class CategoryView extends View {

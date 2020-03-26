@@ -1,4 +1,4 @@
-export function html(type, props, ...children) {
+export function jsx(type, props, ...children) {
   if (type === 'cella-fragment') {
     return mapChildren(children);
   }

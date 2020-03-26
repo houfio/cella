@@ -1,6 +1,6 @@
 import { Part } from '../Part';
 import { fieldLabels } from '../constants';
-import { html } from '../utils/html';
+import { jsx } from '../utils/jsx';
 
 export class Input extends Part {
   render() {
