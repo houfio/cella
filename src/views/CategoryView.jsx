@@ -76,7 +76,13 @@ export class CategoryView extends View {
           <div className="col-4">
             {product && (
               <>
-                <ul className="list-group mb-3">
+                <div
+                  style="width: calc(100% / 7.5)"
+                  className="bg-danger force-square"
+                  draggable={true}
+                  onDragStart={this.controller.drag}
+                />
+                <ul className="list-group mb-3 mt-3">
                   {Object.entries(product).filter(([key]) => key !== 'id').map(([key, value]) => key !== 'extra' ? (
                     <li className="list-group-item">{fieldLabels[key].label}: {value}</li>
                   ) : value.map(({ label, value: v }) => (
@@ -104,7 +110,13 @@ export class CategoryView extends View {
           <div className="col-8">
             <div className="grid">
               {range(0, 225).map(() => (
-                <div className="grid-item"/>
+                <div
+                  className="grid-item force-square"
+                  onDrop={this.controller.drop}
+                  onDragOver={(e) => e.preventDefault()}
+                  draggable={false}
+                  onClick={this.controller.removeProduct}
+                />
               ))}
             </div>
           </div>

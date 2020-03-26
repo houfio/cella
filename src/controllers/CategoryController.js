@@ -107,4 +107,25 @@ export class CategoryController extends Controller {
   };
 
   handleDraw = (e) => this.#drawer?.draw(e);
+
+  drag = (e) => {
+    const { productId } = this.model;
+
+    e.dataTransfer.setData('product', productId);
+  };
+
+  drop = (e) => {
+    const product = e.dataTransfer.getData('product');
+
+    if (!product) {
+      return;
+    }
+
+    e.preventDefault();
+    e.target.setAttribute('data-product', product);
+  };
+
+  removeProduct = (e) => {
+    e.target.removeAttribute('data-product');
+  };
 }
