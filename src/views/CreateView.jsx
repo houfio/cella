@@ -56,7 +56,7 @@ export class CreateView extends View {
                   <button onClick={this.controller.previousStep} className="btn btn-primary">
                     Vorige
                   </button>
-                  <div>
+                  <div className="btn-group">
                     <button onClick={this.controller.removeInputField} className="btn btn-primary" disabled={Boolean(!this.controller.extraCount)}>
                       Verwijderen
                     </button>

@@ -6,13 +6,14 @@ export class HomeView extends View {
   render() {
     return (
       <div className="container">
-        <Jumbotron title="Categorieën">
+        <Jumbotron title="Categorieën"/>
+        <div className="btn-group">
           {this.controller.categories.map(([key, label]) => (
             <button className="btn btn-primary" onClick={() => this.controller.navigateTo(key)}>
               {label}
             </button>
           ))}
-        </Jumbotron>
+        </div>
       </div>
     );
   }

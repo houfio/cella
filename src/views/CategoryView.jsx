@@ -46,13 +46,12 @@ export class CategoryView extends View {
             </div>
           </div>
         </div>
-        <button className="btn btn-primary" onClick={() => this.controller.navigateTo('/')}>
-          Terug
-        </button>
-        <button className="btn btn-primary" onClick={() => this.controller.navigateTo(`/${this.controller.name}/create`)}>
-          Product toevoegen
-        </button>
-        <div className="form-group">
+        <div className="input-group mb-4">
+          <div className="input-group-prepend">
+            <button className="btn btn-primary" onClick={() => this.controller.navigateTo('/')}>
+              Terug
+            </button>
+          </div>
           <select className="form-control" onChange={this.controller.selectProduct}>
             <option>Selecteer een product...</option>
             {this.controller.products.map((product) => (
@@ -64,21 +63,31 @@ export class CategoryView extends View {
               </option>
             ))}
           </select>
+          <div className="input-group-append">
+            <button
+              className="btn btn-primary "
+              onClick={() => this.controller.navigateTo(`/${this.controller.name}/create`)}
+            >
+              Product toevoegen
+            </button>
+          </div>
         </div>
         <div className="row">
           <div className="col-4">
             {product && (
               <>
-                <ul className="list-group">
+                <ul className="list-group mb-3">
                   {Object.entries(product).filter(([key]) => key !== 'id').map(([key, value]) => key !== 'extra' ? (
                     <li className="list-group-item">{fieldLabels[key].label}: {value}</li>
                   ) : value.map(({ label, value: v }) => (
                     <li className="list-group-item">{label}: {v}</li>
                   )))}
                 </ul>
-                <ul className="list-group mt-2">
-                  <li className="list-group-item">Inkoopprijs (inc. BTW): {(parseInt(product.purchasePrice || 0) * 1.21).toFixed(2)}</li>
-                  <li className="list-group-item">Verkoopprijs (inc. BTW): {(parseInt(product.price || 0) * 1.21).toFixed(2)}</li>
+                <ul className="list-group mb-3">
+                  <li className="list-group-item">Inkoopprijs (inc.
+                    BTW): {(parseInt(product.purchasePrice || 0) * 1.21).toFixed(2)}</li>
+                  <li className="list-group-item">Verkoopprijs (inc.
+                    BTW): {(parseInt(product.price || 0) * 1.21).toFixed(2)}</li>
                 </ul>
                 <input onChange={this.controller.onUpload} type="file" id="product_image"/>
                 <canvas

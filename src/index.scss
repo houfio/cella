@@ -8,6 +8,7 @@
 @import "~bootstrap/scss/forms";
 @import "~bootstrap/scss/input-group";
 @import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/button-group";
 @import "~bootstrap/scss/jumbotron";
 @import "~bootstrap/scss/list-group";
 @import "~bootstrap/scss/spinners";
@@ -57,7 +58,7 @@ li.list-group-item-action:not(.active):hover {
   animation: forwardsIn .25s ease-out;
 
   &.old {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
@@ -69,6 +70,8 @@ li.list-group-item-action:not(.active):hover {
 .grid {
   display: grid;
   grid-template-columns: repeat(15, 1fr);
+  border-radius: $border-radius-lg;
+  overflow: hidden;
 
   &-item {
     padding-bottom: 100%;
