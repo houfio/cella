@@ -1,5 +1,5 @@
 import { Controller } from '../Controller';
-import { categoryLabels } from '../constants';
+import { blockages, categoryLabels } from '../constants';
 import { CategoryModel } from '../models/CategoryModel';
 import { Drawer } from '../utils/drawer';
 import { navigate } from '../utils/navigate';
@@ -117,7 +117,7 @@ export class CategoryController extends Controller {
   drop = (e) => {
     const product = e.dataTransfer.getData('product');
 
-    if (!product) {
+    if (!product || e.target.dataset.blocked === 'true') {
       return;
     }
 
@@ -128,4 +128,10 @@ export class CategoryController extends Controller {
   removeProduct = (e) => {
     e.target.removeAttribute('data-product');
   };
+
+  isBlocked = (index) => {
+    const { name } = this.model;
+
+    return blockages[name].indexOf(index) !== -1;
+  }
 }

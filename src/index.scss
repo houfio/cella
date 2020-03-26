@@ -97,6 +97,14 @@ li.list-group-item-action:not(.active):hover {
         cursor: pointer;
       }
     }
+
+    &[data-blocked="true"] {
+      background-image: url(./assets/times-solid.svg);
+      background-size: 1.5rem;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-blend-mode: overlay;
+    }
   }
 }
 

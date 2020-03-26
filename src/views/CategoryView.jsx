@@ -109,13 +109,14 @@ export class CategoryView extends View {
           </div>
           <div className="col-8">
             <div className="grid">
-              {range(0, 225).map(() => (
+              {range(0, 225).map((i) => (
                 <div
                   className="grid-item force-square"
                   onDrop={this.controller.drop}
                   onDragOver={(e) => e.preventDefault()}
                   draggable={false}
                   onClick={this.controller.removeProduct}
+                  data-blocked={this.controller.isBlocked(i)}
                 />
               ))}
             </div>

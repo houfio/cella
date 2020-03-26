@@ -52,3 +52,11 @@ export const extraFields = {
   lighting: ['weight'],
   decoration: ['size', 'color', 'packageAmount']
 };
+
+export const blockages = {
+  clothing: [
+    3, 6, 8, 54
+  ],
+  lighting: [],
+  decoration: []
+};
