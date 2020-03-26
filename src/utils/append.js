@@ -22,7 +22,13 @@ export function append(element, container) {
       refs[element.props[key]] = dom;
     }
 
-    dom[key.startsWith('on') ? key.toLowerCase() : key] = element.props[key];
+    if (key.startsWith('on')) {
+      dom.addEventListener(key.substr(2).toLowerCase(), element.props[key]);
+    } else if (key.startsWith('data-')) {
+      dom.setAttribute(key, element.props[key]);
+    } else {
+      dom[key] = element.props[key];
+    }
   }
 
   refs = {
