@@ -10,6 +10,9 @@
     "plugin:import/warnings"
   ],
   "parser": "babel-eslint",
+  "parserOptions": {
+    "requireConfigFile": false
+  },
   "settings": {
     "react": {
       "pragma": "html",
@@ -55,6 +58,7 @@
         "varsIgnorePattern": "html"
       }
     ],
-    "react/jsx-key": "off"
+    "react/jsx-key": "off",
+    "import/no-named-as-default": "off"
   }
 }

@@ -1,5 +1,6 @@
 import { Controller } from '../Controller';
 import { categoryLabels } from '../constants';
+import { CategoryModel } from '../models/CategoryModel';
 import { Drawer } from '../utils/drawer';
 import { navigate } from '../utils/navigate';
 import { storage } from '../utils/storage';
@@ -8,28 +9,23 @@ import { weather } from '../utils/weather';
 import { CategoryView } from '../views/CategoryView';
 
 export class CategoryController extends Controller {
-  #upload;
-  #drawer;
-
   static get route() {
     return /^\/(?<name>[\w]+)$/;
   }
 
-  initial(params) {
-    return {
-      ...params,
-      city: this.cities[0],
-      temperature: undefined,
-      productId: undefined
-    };
-  }
+  #upload;
+  #drawer;
 
   view() {
     return CategoryView;
   }
 
+  initial() {
+    return CategoryModel;
+  }
+
   async mount() {
-    const { name } = this.state;
+    const { name } = this.model;
 
     if (!categoryLabels[name]) {
       navigate('/');
@@ -46,15 +42,15 @@ export class CategoryController extends Controller {
   }
 
   get name() {
-    return this.state.name;
+    return this.model.name;
   }
 
   get city() {
-    return this.state.city;
+    return this.model.city;
   }
 
   get temperature() {
-    return this.state.temperature;
+    return this.model.temperature;
   }
 
   get products() {
@@ -62,61 +58,46 @@ export class CategoryController extends Controller {
   }
 
   get product() {
-    return storage.getById(this.state.name, this.state.productId);
+    return storage.getById(this.model.name, this.model.productId);
   }
 
   get cities() {
-    return [
-      'Huidige locatie',
-      'Maastricht',
-      'Weert',
-      'Eindhoven',
-      '\'s-Hertogenbosch',
-      'Utrecht',
-      'Amsterdam'
-    ];
+    return this.model.cities;
   }
 
   getWeather = async () => {
     const city = this.refs['city'].value;
     const current = city === this.cities[0];
 
-    this.set({
-      ...this.state,
-      city,
-      temperature: undefined
+    this.set((model) => {
+      model.city = city;
+      model.temperature = undefined;
     });
 
     if (!current) {
       const { main } = await weather.getByCity(city);
 
-      return this.set({
-        ...this.state,
-        temperature: main.temp
+      return this.set((model) => {
+        model.temperature = main.temp;
       });
     }
 
     try {
       const { main } = await weather.getByLocation();
 
-      this.set({
-        ...this.state,
-        temperature: main.temp
+      this.set((model) => {
+        model.temperature = main.temp;
       });
     } catch {
-      this.set({
-        ...this.state,
-        temperature: null
+      this.set((model) => {
+        model.temperature = null;
       });
     }
   };
 
-  selectProduct = (product) => {
-    this.set({
-      ...this.state,
-      productId: product.target.value
-    });
-  };
+  selectProduct = (product) => this.set((model) => {
+    model.productId = product.target.value;
+  });
 
   navigateTo = (target) => navigate(target);
 

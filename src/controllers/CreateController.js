@@ -1,6 +1,7 @@
 import { generate } from 'shortid';
 import { Controller } from '../Controller';
 import { extraFields } from '../constants';
+import { CreateModel } from '../models/CreateModel';
 import { navigate } from '../utils/navigate';
 import { storage } from '../utils/storage';
 import { CreateView } from '../views/CreateView';
@@ -14,24 +15,12 @@ export class CreateController extends Controller {
     return CreateView;
   }
 
-  initial(params) {
-    return {
-      ...params,
-      step: 0,
-      values: {
-        name: '',
-        description: '',
-        purchasePrice: '',
-        price: '',
-        stock: '',
-        minimumStock: ''
-      },
-      extra: []
-    };
+  initial() {
+    return CreateModel;
   }
 
   mount() {
-    const extra = extraFields[this.state.name];
+    const extra = extraFields[this.model.name];
 
     if (!extra) {
       navigate('/');
@@ -39,32 +28,27 @@ export class CreateController extends Controller {
       return;
     }
 
-    this.set({
-      ...this.state,
-      values: {
-        ...this.state.values,
-        ...extra.reduce((previous, current) => ({
-          ...previous,
-          [current]: ''
-        }), {})
+    this.set((model) => {
+      for (const e of extra) {
+        model.values[e] = '';
       }
     });
   }
 
   get step() {
-    return this.state.step;
+    return this.model.step;
   }
 
   get values() {
-    return Object.entries(this.state.values);
+    return Object.entries(this.model.values);
   }
 
   get extra() {
-    return this.state.extra;
+    return this.model.extra;
   }
 
   get extraCount() {
-    return this.state.extra.length;
+    return this.model.extra.length;
   }
 
   get addingExtra() {
@@ -72,7 +56,7 @@ export class CreateController extends Controller {
   }
 
   saveValue = () => {
-    const { step, values } = this.state;
+    const { step, values } = this.model;
     const keys = Object.keys(values);
 
     if (step >= keys.length) {
@@ -82,17 +66,13 @@ export class CreateController extends Controller {
     const id = keys[step];
     const value = document.getElementById(id).value;
 
-    this.set({
-      ...this.state,
-      values: {
-        ...values,
-        [id]: value
-      }
+    this.set((model) => {
+      model.values[id] = value;
     }, false);
   };
 
   previousStep = () => {
-    const { name, step } = this.state;
+    const { name, step } = this.model;
 
     if (!step) {
       navigate(`/${name}`);
@@ -101,66 +81,44 @@ export class CreateController extends Controller {
     }
 
     this.saveValue();
-    this.set({
-      ...this.state,
-      step: step - 1
+    this.set((model) => {
+      model.step--;
     });
   };
 
   nextStep = () => {
-    const { step } = this.state;
-
     this.saveValue();
-    this.set({
-      ...this.state,
-      step: step + 1
+    this.set((model) => {
+      model.step++;
     });
   };
 
   toStep = (step) => {
     this.saveValue();
-    this.set({
-      ...this.state,
-      step
+    this.set((model) => {
+      model.step = step;
     });
   };
 
   saveExtraInput = (event, index, path) => {
-    const { extra } = this.state;
-
-    this.set({
-      ...this.state,
-      extra: extra.map((input, i) => {
-        if (String(i) !== index) {
-          return input;
-        }
-
-        return {
-          ...input,
-          [path]: event.target.value
-        };
-      })
+    this.set((model) => {
+      model.extra[index][path] = event.target.value;
     }, false);
   };
 
-  addInputField = () => this.set({
-    ...this.state,
-    extra: [
-      ...this.state.extra,
-      {
-        label: '',
-        value: ''
-      }
-    ]
+  addInputField = () => this.set((model) => {
+    model.extra.push({
+      label: '',
+      value: ''
+    });
   });
 
-  removeInputField = () => this.set({
-    ...this.state,
-    extra: this.state.extra.slice(0, -1)
+  removeInputField = () => this.set((model) => {
+    model.extra.pop();
   });
 
   saveProduct = () => {
-    const { name, values, extra } = this.state;
+    const { name, values, extra } = this.model;
 
     storage.push(name, { id: generate(), ...values, extra });
     navigate(`/${name}`);

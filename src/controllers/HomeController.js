@@ -1,5 +1,6 @@
 import { Controller } from '../Controller';
 import { categoryLabels } from '../constants';
+import { HomeModel } from '../models/HomeModel';
 import { navigate } from '../utils/navigate';
 import { HomeView } from '../views/HomeView';
 
@@ -10,6 +11,10 @@ export class HomeController extends Controller {
 
   view() {
     return HomeView;
+  }
+
+  initial() {
+    return HomeModel;
   }
 
   get categories() {

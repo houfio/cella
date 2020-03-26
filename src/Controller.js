@@ -1,29 +1,31 @@
-import equal from 'fast-deep-equal/es6';
+import produce from 'immer';
 
 export class Controller {
   static get route() {
     throw new Error('Method \'route()\' must be implemented');
   }
 
-  #state;
+  #model;
   #rerender;
   refs = {};
 
   constructor(params, rerender) {
-    this.#state = this.initial(params);
+    const cls = this.initial();
+
+    this.#model = new cls(params);
     this.#rerender = rerender;
   }
 
-  get state() {
-    return this.#state;
+  get model() {
+    return this.#model;
   }
 
   view() {
     throw new Error('Method \'view()\' must be implemented');
   }
 
-  initial(params) {
-    return params;
+  initial() {
+    throw new Error('Method \'initial()\' must be implemented');
   }
 
   mount() {
@@ -35,12 +37,12 @@ export class Controller {
   unmount() {
   }
 
-  set(state, mandatory = true) {
-    const current = this.state;
+  set(fn, refresh = true) {
+    const current = this.model;
 
-    this.#state = state;
+    this.#model = produce(current, fn);
 
-    if (mandatory && !equal(current, this.state)) {
+    if (refresh && current !== this.model) {
       this.#rerender();
     }
   }
