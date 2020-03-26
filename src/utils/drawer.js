@@ -25,6 +25,12 @@ export class Drawer {
     this.#y = e.clientY - y;
   }
 
+  fillCanvas(base64) {
+    const image = new Image();
+    image.onload = () => this.#context.drawImage(image, 0, 0);
+    image.src = base64;
+  }
+
   draw(e) {
     if (e.buttons !== 1) {
       return;

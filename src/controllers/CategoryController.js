@@ -39,6 +39,10 @@ export class CategoryController extends Controller {
 
     this.#upload = ref ? new Upload(ref) : undefined;
     this.#drawer = ref ? new Drawer(ref) : undefined;
+
+    if (this.product && this.product.image) {
+      this.#drawer.fillCanvas(this.product.image);
+    }
   }
 
   get name() {
@@ -123,6 +127,13 @@ export class CategoryController extends Controller {
 
     e.preventDefault();
     e.target.setAttribute('data-product', product);
+  };
+
+  saveCanvas = () => {
+    storage.update(this.name, this.model.productId, {
+      ...this.product,
+      image: this.#drawer.base64
+    });
   };
 
   removeProduct = (e) => {

@@ -23,18 +23,18 @@ class Storage {
     ]));
   }
 
+  update(key, id, data) {
+    const list = this.#getRaw(key);
+
+    localStorage.setItem(key, JSON.stringify(list.map((value) => value.id === id ? data : value )));
+  }
+
   get(key) {
     return this.#getRaw(key);
   }
 
   getById(key, id) {
     return this.get(key).find((obj) => obj.id === id);
-  }
-
-  filter(key, filter) {
-    let list = this.get(key);
-
-    localStorage.setItem(key, JSON.stringify(list.filter(filter)));
   }
 }
 

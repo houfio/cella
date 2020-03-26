@@ -1,3 +1,5 @@
+import { range } from './utils/range';
+
 export const fieldLabels = {
   name: {
     label: 'Naam',
@@ -55,8 +57,23 @@ export const extraFields = {
 
 export const blockages = {
   clothing: [
-    3, 6, 8, 54
+    ...range(0, 30),
+    ...range(91, 104),
+    ...range(106, 119),
+    ...range(121, 134),
+    172, 210, 224
   ],
-  lighting: [],
-  decoration: []
+  lighting: [
+    0, 6, 7, 8, 14,
+    ...range(95, 100),
+    ...range(110, 115),
+    ...range(125, 130),
+    170, 172, 174
+  ],
+  decoration: [
+    0, 14, 30, 60, 90, 120, 150, 180, 210, 224,
+    ...range(95, 100),
+    ...range(110, 115),
+    ...range(125, 130),
+  ]
 };

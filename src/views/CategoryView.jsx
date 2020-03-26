@@ -65,7 +65,7 @@ export class CategoryView extends View {
           </select>
           <div className="input-group-append">
             <button
-              className="btn btn-primary "
+              className="btn btn-primary"
               onClick={() => this.controller.navigateTo(`/${this.controller.name}/create`)}
             >
               Product toevoegen
@@ -83,7 +83,7 @@ export class CategoryView extends View {
                   onDragStart={this.controller.drag}
                 />
                 <ul className="list-group mb-3 mt-3">
-                  {Object.entries(product).filter(([key]) => key !== 'id').map(([key, value]) => key !== 'extra' ? (
+                  {Object.entries(product).filter(([key]) => key !== 'id' && key !== 'image').map(([key, value]) => key !== 'extra' ? (
                     <li className="list-group-item">{fieldLabels[key].label}: {value}</li>
                   ) : value.map(({ label, value: v }) => (
                     <li className="list-group-item">{label}: {v}</li>
@@ -96,6 +96,9 @@ export class CategoryView extends View {
                     BTW): {(parseInt(product.price || 0) * 1.21).toFixed(2)}</li>
                 </ul>
                 <input onChange={this.controller.onUpload} type="file" id="product_image"/>
+                <button onClick={this.controller.saveCanvas} className="btn btn-primary">
+                  Save
+                </button>
                 <canvas
                   onMouseMove={this.controller.handleDraw}
                   onMouseDown={this.controller.handleDraw}
