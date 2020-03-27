@@ -6,6 +6,7 @@
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/type";
 @import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/custom-forms";
 @import "~bootstrap/scss/input-group";
 @import "~bootstrap/scss/buttons";
 @import "~bootstrap/scss/button-group";
@@ -106,6 +107,18 @@ li.list-group-item-action:not(.active):hover {
       background-repeat: no-repeat;
       background-blend-mode: overlay;
     }
+  }
+}
+
+.drag-source {
+  padding: .5rem;
+  border: 2px dashed $gray-400;
+  border-radius: $btn-border-radius;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+
+  &:hover {
+    cursor: grab;
   }
 }
 

@@ -34,7 +34,7 @@ export class CategoryView extends View {
                       Temperatuur: {this.controller.temperature} &#8451;
                     </p>
                   )}
-                  <select id="city" className="form-control" onChange={this.controller.getWeather}>
+                  <select id="city" className="form-control custom-select" onChange={this.controller.getWeather}>
                     {this.controller.cities.map((city) => (
                       <option selected={this.controller.city === city}>
                         {city}
@@ -52,7 +52,7 @@ export class CategoryView extends View {
               Terug
             </button>
           </div>
-          <select className="form-control" onChange={this.controller.selectProduct}>
+          <select className="form-control custom-select" onChange={this.controller.selectProduct}>
             <option>Selecteer een product...</option>
             {this.controller.products.map((product) => (
               <option
@@ -78,7 +78,7 @@ export class CategoryView extends View {
               <>
                 <div
                   style="width: calc(100% / 7.5)"
-                  className="bg-danger force-square"
+                  className="drag-source force-square"
                   id="square"
                   draggable={true}
                   onDragStart={this.controller.drag}
