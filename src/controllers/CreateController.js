@@ -1,6 +1,6 @@
 import { generate } from 'shortid';
 import { Controller } from '../Controller';
-import { extraFields, fieldLabels } from '../constants';
+import { extraFields } from '../constants';
 import { CreateModel } from '../models/CreateModel';
 import { navigate } from '../utils/navigate';
 import { storage } from '../utils/storage';
@@ -35,7 +35,7 @@ export class CreateController extends Controller {
     } else {
       this.set((model) => {
         for (const e of extra) {
-          model.values[e] = '';
+          model.setValue(e, '');
         }
       });
     }
@@ -81,8 +81,8 @@ export class CreateController extends Controller {
     const value = document.getElementById(id).value;
 
     this.set((model) => {
-      model.values[id] = value;
-      model.error = false;
+      model.setValue(id, value);
+      model.setError(false);
     }, false);
   };
 
@@ -97,32 +97,32 @@ export class CreateController extends Controller {
 
     this.saveValue();
     this.set((model) => {
-      model.step--;
+      model.decrementStep();
     });
   };
 
   nextStep = () => {
     this.saveValue();
     this.set((model) => {
-      model.step++;
+      model.incrementStep();
     });
   };
 
   toStep = (step) => {
     this.saveValue();
     this.set((model) => {
-      model.step = step;
+      model.step(step);
     });
   };
 
   saveExtraInput = (event, index, path) => {
     this.set((model) => {
-      model.extra[index][path] = event.target.value;
+      model.updateExtra(index, path, event.target.value);
     }, false);
   };
 
   addInputField = () => this.set((model) => {
-    model.extra.push({
+    model.addExtra({
       label: '',
       value: ''
     });
@@ -135,20 +135,18 @@ export class CreateController extends Controller {
   saveProduct = () => {
     const { name, values, extra } = this.model;
 
-    const validatedExtra = extra.map((value) => value.label.length > 0 && value.value.length > 0);
-    const validatedValues = Object.keys(values).map((key) => fieldLabels[key].type === 'number' ? !isNaN(parseInt(values[key], 10)) : values[key].length > 0);
-    const validated = validatedExtra.concat(validatedValues);
+    const validated = this.model.validateValues().concat(this.model.validateExtras());
 
     if (validated.includes(false)) {
       this.set((model) => {
-        model.error = true;
+        model.setError(true);
       });
 
       return;
     }
 
     this.set((model) => {
-      model.error = false;
+      model.setError(false);
     });
 
     if (this.model.id) {
