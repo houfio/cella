@@ -65,9 +65,9 @@ export class CreateController extends Controller {
     return this.step >= this.values.length;
   }
 
-  doCalculation = () => {
-
-  };
+  get calculatorValue() {
+    return this.model.calculatorValue;
+  }
 
   saveValue = () => {
     const { step, values } = this.model;
@@ -156,5 +156,11 @@ export class CreateController extends Controller {
     }
 
     navigate(`/${name}`);
+  };
+
+  setCalculatorValue = (value) => {
+    this.set((model) => {
+      model.calculatorValue = value;
+    });
   };
 }

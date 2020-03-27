@@ -12,6 +12,7 @@ export class CreateModel extends Model {
     minimumStock: ''
   };
   extra = [];
+  calculatorValue = '';
 
   toStep(step) {
     this.step = step;

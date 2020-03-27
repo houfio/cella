@@ -14,7 +14,6 @@ export class CreateView extends View {
     return (
       <div className="container">
         <Jumbotron title="Product aanmaken"/>
-        <Calculator/>
         <div className="row">
           <div className="col-4">
             <ul className="list-group overflow-hidden text-nowrap">
@@ -77,6 +76,7 @@ export class CreateView extends View {
                 </div>
               </>
             )}
+            <Calculator value={this.controller.calculatorValue} setValue={this.controller.setCalculatorValue}/>
           </div>
         </div>
       </div>
