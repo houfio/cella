@@ -29,18 +29,8 @@ export class CreateController extends Controller {
     }
 
     if (this.model.id && storage.getById(this.model.name, this.model.id)) {
-      const product = storage.getById(this.model.name, this.model.id);
-
       this.set((model) => {
-        for (const [key, value] of Object.entries(product).filter(([key]) => key !== 'id')) {
-          if (key === 'extra') {
-            model.extra = product[key];
-          } else if (key === 'image') {
-            model.image = product[key];
-          } else {
-            model.values[key] = value;
-          }
-        }
+        model.fillData(storage.getById(this.model.name, this.model.id));
       });
     } else {
       this.set((model) => {
