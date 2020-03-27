@@ -129,7 +129,9 @@ export class CreateController extends Controller {
   saveProduct = () => {
     const { name, values, extra } = this.model;
 
-    const validated = Object.keys(values).map((key) => fieldLabels[key].type === 'number' ? !isNaN(parseInt(values[key], 10)) : values[key].length > 0);
+    const validatedExtra = extra.map((value) => value.label.length > 0 && value.value.length > 0);
+    const validatedValues = Object.keys(values).map((key) => fieldLabels[key].type === 'number' ? !isNaN(parseInt(values[key], 10)) : values[key].length > 0);
+    const validated = validatedExtra.concat(validatedValues);
 
     if (validated.includes(false)) {
       this.set((model) => {
