@@ -14,7 +14,8 @@ export class CategoryModel extends Model {
       'Eindhoven',
       '\'s-Hertogenbosch',
       'Utrecht',
-      'Amsterdam'
+      'Amsterdam',
+      'Uden'
     ];
   }
 }
