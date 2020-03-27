@@ -18,4 +18,16 @@ export class CategoryModel extends Model {
       'Uden'
     ];
   }
+
+  setCity(city) {
+    this.city = city;
+  }
+
+  setTemperature(temp) {
+    this.temperature = temp;
+  }
+
+  setProductId(id) {
+    this.productId = id;
+  }
 }

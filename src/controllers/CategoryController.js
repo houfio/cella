@@ -81,15 +81,15 @@ export class CategoryController extends Controller {
     const current = city === this.cities[0];
 
     this.set((model) => {
-      model.city = city;
-      model.temperature = undefined;
+      model.setCity(city);
+      model.setTemperature(undefined);
     });
 
     if (!current) {
       const { main } = await weather.getByCity(city);
 
       return this.set((model) => {
-        model.temperature = main.temp;
+        model.setTemperature(main.temp);
       });
     }
 
@@ -97,17 +97,17 @@ export class CategoryController extends Controller {
       const { main } = await weather.getByLocation();
 
       this.set((model) => {
-        model.temperature = main.temp;
+        model.setTemperature(main.temp);
       });
     } catch {
       this.set((model) => {
-        model.temperature = null;
+        model.setTemperature(null);
       });
     }
   };
 
   selectProduct = (product) => this.set((model) => {
-    model.productId = product.target.value;
+    model.setProductId(product.target.value);
   });
 
   navigateTo = (target) => navigate(target);
