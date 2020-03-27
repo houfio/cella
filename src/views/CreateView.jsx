@@ -29,6 +29,11 @@ export class CreateView extends View {
             </ul>
           </div>
           <div className="col-8">
+            {this.controller.error && (
+              <div className="alert alert-danger" role="alert">
+                Sommige velden zijn niet/onjuist ingevuld. Corrigeer deze velden.
+              </div>
+            )}
             {!this.controller.addingExtra ? (
               <Input id={id} step={step} entries={entries} previousStep={this.controller.previousStep} nextStep={this.controller.nextStep}/>
             ) : (

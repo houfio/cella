@@ -51,6 +51,10 @@ export class CreateController extends Controller {
     return this.model.extra.length;
   }
 
+  get error() {
+    return this.model.error;
+  }
+
   get addingExtra() {
     return this.step >= this.values.length;
   }
@@ -72,6 +76,7 @@ export class CreateController extends Controller {
 
     this.set((model) => {
       model.values[id] = value;
+      model.error = false;
     }, false);
   };
 
@@ -127,9 +132,16 @@ export class CreateController extends Controller {
     const validated = Object.keys(values).map((key) => fieldLabels[key].type === 'number' ? !isNaN(parseInt(values[key], 10)) : values[key].length > 0);
 
     if (validated.includes(false)) {
-      window.alert('Een of meerdere velden zijn niet correct ingevuld');
+      this.set((model) => {
+        model.error = true;
+      });
+
       return;
     }
+
+    this.set((model) => {
+      model.error = false;
+    });
 
     storage.push(name, { id: generate(), ...values, extra });
     navigate(`/${name}`);
