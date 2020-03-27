@@ -112,6 +112,9 @@ export class CategoryView extends View {
                     <button onClick={this.controller.saveCanvas} className="btn btn-primary">
                       Save
                     </button>
+                    <button onClick={() => this.controller.navigateTo(`/${this.controller.name}/${product.id}`)} className="btn btn-light">
+                      Edit product
+                    </button>
                   </div>
                 </div>
                 <canvas
