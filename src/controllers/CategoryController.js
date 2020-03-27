@@ -136,6 +136,8 @@ export class CategoryController extends Controller {
       ...this.product,
       image: this.#drawer.base64
     });
+
+    this.rerender();
   };
 
   removeProduct = (e) => {

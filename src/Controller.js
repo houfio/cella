@@ -20,6 +20,10 @@ export class Controller {
     return this.#model;
   }
 
+  get rerender() {
+    return this.#rerender;
+  }
+
   view() {
     throw new Error('Method \'view()\' must be implemented');
   }
