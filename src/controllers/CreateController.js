@@ -31,11 +31,12 @@ export class CreateController extends Controller {
     if (this.model.id && storage.getById(this.model.name, this.model.id)) {
       const product = storage.getById(this.model.name, this.model.id);
 
-
       this.set((model) => {
-        for (const [key, value] of Object.entries(product).filter(([key]) => key !== 'id' && key !== 'image')) {
+        for (const [key, value] of Object.entries(product).filter(([key]) => key !== 'id')) {
           if (key === 'extra') {
             model.extra = product[key];
+          } else if (key === 'image') {
+            model.image = product[key];
           } else {
             model.values[key] = value;
           }
@@ -160,7 +161,12 @@ export class CreateController extends Controller {
       model.error = false;
     });
 
-    storage.push(name, { id: generate(), ...values, extra });
+    if (this.model.id) {
+      storage.update(name, this.model.id, { id: this.model.id, ...values, extra, image: this.model.image });
+    } else {
+      storage.push(name, { id: generate(), ...values, extra });
+    }
+
     navigate(`/${name}`);
   };
 }
