@@ -55,6 +55,10 @@ export class CreateController extends Controller {
     return this.step >= this.values.length;
   }
 
+  doCalculation = () => {
+
+  };
+
   saveValue = () => {
     const { step, values } = this.model;
     const keys = Object.keys(values);
