@@ -3,8 +3,6 @@ import { jsx } from '../utils/jsx';
 
 export class Calculator extends Part {
   render() {
-
-
     const { value, setValue } = this.props;
     const result = this.calculate();
 
@@ -94,7 +92,7 @@ export class Calculator extends Part {
     const { value } = this.props;
 
     try {
-      return eval(value);
+      return eval(value).toString();
     } catch (e) {
       return null;
     }
