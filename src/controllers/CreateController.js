@@ -8,7 +8,7 @@ import { CreateView } from '../views/CreateView';
 
 export class CreateController extends Controller {
   static get route() {
-    return /^\/(?<name>[\w]+)\/create$/;
+    return /^\/(?<name>[\w]+)\/(?:create|(?<id>[\w-]+))$/;
   }
 
   view() {
@@ -28,11 +28,26 @@ export class CreateController extends Controller {
       return;
     }
 
-    this.set((model) => {
-      for (const e of extra) {
-        model.values[e] = '';
-      }
-    });
+    if (this.model.id && storage.getById(this.model.name, this.model.id)) {
+      const product = storage.getById(this.model.name, this.model.id);
+
+
+      this.set((model) => {
+        for (const [key, value] of Object.entries(product).filter(([key]) => key !== 'id' && key !== 'image')) {
+          if (key === 'extra') {
+            model.extra = product[key];
+          } else {
+            model.values[key] = value;
+          }
+        }
+      });
+    } else {
+      this.set((model) => {
+        for (const e of extra) {
+          model.values[e] = '';
+        }
+      });
+    }
   }
 
   get step() {
