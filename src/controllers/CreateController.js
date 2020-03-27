@@ -111,7 +111,7 @@ export class CreateController extends Controller {
   toStep = (step) => {
     this.saveValue();
     this.set((model) => {
-      model.step(step);
+      model.toStep(step);
     });
   };
 
