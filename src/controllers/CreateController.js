@@ -1,6 +1,6 @@
 import { generate } from 'shortid';
 import { Controller } from '../Controller';
-import { extraFields } from '../constants';
+import { extraFields, fieldLabels } from '../constants';
 import { CreateModel } from '../models/CreateModel';
 import { navigate } from '../utils/navigate';
 import { storage } from '../utils/storage';
@@ -123,6 +123,13 @@ export class CreateController extends Controller {
 
   saveProduct = () => {
     const { name, values, extra } = this.model;
+
+    const validated = Object.keys(values).map((key) => fieldLabels[key].type === 'number' ? !isNaN(parseInt(values[key], 10)) : values[key].length > 0);
+
+    if (validated.includes(false)) {
+      window.alert('Een of meerdere velden zijn niet correct ingevuld');
+      return;
+    }
 
     storage.push(name, { id: generate(), ...values, extra });
     navigate(`/${name}`);
