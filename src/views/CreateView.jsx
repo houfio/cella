@@ -16,7 +16,7 @@ export class CreateView extends View {
         <Jumbotron title="Product aanmaken"/>
         <div className="row">
           <div className="col-4">
-            <ul className="list-group overflow-hidden text-nowrap">
+            <ul className="list-group overflow-hidden text-nowrap mb-3">
               {entries.map(([key, value], index) => (
                 <li
                   className={`list-group-item list-group-item-action${step === index ? ' active' : ''}`}
@@ -26,6 +26,7 @@ export class CreateView extends View {
                 </li>
               ))}
             </ul>
+            <Calculator value={this.controller.calculatorValue} setValue={this.controller.setCalculatorValue}/>
           </div>
           <div className="col-8">
             {this.controller.error && (
@@ -76,7 +77,6 @@ export class CreateView extends View {
                 </div>
               </>
             )}
-            <Calculator value={this.controller.calculatorValue} setValue={this.controller.setCalculatorValue}/>
           </div>
         </div>
       </div>

@@ -132,3 +132,34 @@ li.list-group-item-action:not(.active):hover {
   display: block;
   padding-bottom: 100%;
 }
+
+.calculator {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(6, minmax(0, 1fr));
+  grid-gap: .5rem;
+  padding: 1rem;
+  background-color: $gray-200;
+  border-radius: $btn-border-radius;
+
+  & .result {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 .5rem;
+    background-color: white;
+    font-size: 1.5rem;
+    border-radius: $btn-border-radius;
+    overflow: hidden;
+  }
+
+  & .column-span {
+    &-2 {
+      grid-column: span 2;
+    }
+
+    &-4 {
+      grid-column: span 4;
+    }
+  }
+}

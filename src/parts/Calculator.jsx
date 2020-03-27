@@ -7,78 +7,26 @@ export class Calculator extends Part {
     const result = this.calculate();
 
     return (
-      <div className="row">
-        <div className="col-auto">
-          <div className="row">
-            <div className="col-4 p-0">
-              <span>{value}</span>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-4 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={() => setValue('')}>C</button>
-            </div>
-            <div className="col-8 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={() => setValue(value.slice(0, -1))}>Back</button>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('7')}>7</button>
-            </div>
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('8')}>8</button>
-            </div>
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('9')}>9</button>
-            </div>
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('+')}>+</button>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('4')}>4</button>
-            </div>
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('5')}>5</button>
-            </div>
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('6')}>6</button>
-            </div>
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('-')}>-</button>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('1')}>1</button>
-            </div>
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('2')}>2</button>
-            </div>
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('3')}>3</button>
-            </div>
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('/')}>/</button>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('0')}>0</button>
-            </div>
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('.')}>.</button>
-            </div>
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={() => setValue(result)} disabled={result === null}>=</button>
-            </div>
-            <div className="col-3 p-0">
-              <button className="btn btn-primary h-100 w-100" onClick={this.append('*')}>*</button>
-            </div>
-          </div>
-        </div>
+      <div className="calculator">
+        <div className="column-span-4 result">{value || '0'}</div>
+        <button className="btn btn-primary column-span-2" onClick={() => setValue(value.slice(0, -1))}>Back</button>
+        <button className="btn btn-primary" onClick={() => setValue('')}>C</button>
+        <button className="btn btn-primary" onClick={this.append('+')}>+</button>
+        <button className="btn btn-primary" onClick={this.append('7')}>7</button>
+        <button className="btn btn-primary" onClick={this.append('8')}>8</button>
+        <button className="btn btn-primary" onClick={this.append('9')}>9</button>
+        <button className="btn btn-primary" onClick={this.append('-')}>-</button>
+        <button className="btn btn-primary" onClick={this.append('4')}>4</button>
+        <button className="btn btn-primary" onClick={this.append('5')}>5</button>
+        <button className="btn btn-primary" onClick={this.append('6')}>6</button>
+        <button className="btn btn-primary" onClick={this.append('/')}>/</button>
+        <button className="btn btn-primary" onClick={this.append('1')}>1</button>
+        <button className="btn btn-primary" onClick={this.append('2')}>2</button>
+        <button className="btn btn-primary" onClick={this.append('3')}>3</button>
+        <button className="btn btn-primary" onClick={this.append('*')}>*</button>
+        <button className="btn btn-primary column-span-2" onClick={this.append('0')}>0</button>
+        <button className="btn btn-primary" onClick={this.append('.')}>.</button>
+        <button className="btn btn-primary" onClick={() => setValue(result)} disabled={result === null}>=</button>
       </div>
     );
   }

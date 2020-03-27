@@ -23,14 +23,18 @@ export class CreateController extends Controller {
     const extra = extraFields[this.model.name];
 
     if (!extra) {
-      navigate('/');
-
-      return;
+      return navigate('/');
     }
 
-    if (this.model.id && storage.getById(this.model.name, this.model.id)) {
+    if (this.model.id) {
+      const data = storage.getById(this.model.name, this.model.id);
+
+      if (!data) {
+        return navigate('/');
+      }
+
       this.set((model) => {
-        model.fillData(storage.getById(this.model.name, this.model.id));
+        model.fillData(data);
       });
     } else {
       this.set((model) => {

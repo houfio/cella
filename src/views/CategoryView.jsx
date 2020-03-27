@@ -77,7 +77,10 @@ export class CategoryView extends View {
           <div className="col-4">
             {product && (
               <>
-                <div className="d-flex justify-content-end mb-3">
+                <div className="d-flex mb-3">
+                  <button onClick={() => this.controller.navigateTo(`/${this.controller.name}/${product.id}`)} className="btn btn-light mr-3 flex-grow-1">
+                    Edit product
+                  </button>
                   <div
                     style={`width: calc(100% / 7.5); background-image: url(${this.controller.product.image})`}
                     className="drag-source force-square"
@@ -112,9 +115,6 @@ export class CategoryView extends View {
                   <div className="input-group-append">
                     <button onClick={this.controller.saveCanvas} className="btn btn-primary">
                       Save
-                    </button>
-                    <button onClick={() => this.controller.navigateTo(`/${this.controller.name}/${product.id}`)} className="btn btn-light">
-                      Edit product
                     </button>
                   </div>
                 </div>
