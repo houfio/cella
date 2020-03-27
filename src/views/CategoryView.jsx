@@ -1,5 +1,6 @@
 import { View } from '../View';
 import { categoryLabels, fieldLabels } from '../constants';
+import { GridElement } from '../parts/GridElement';
 import { Jumbotron } from '../parts/Jumbotron';
 import { jsx } from '../utils/jsx';
 import { range } from '../utils/range';
@@ -131,15 +132,12 @@ export class CategoryView extends View {
           <div className="col-8">
             <div className="grid">
               {range(0, 225).map((i) => (
-                <div
-                  className="grid-item force-square"
-                  style={`background-image: url(${this.controller.getProductImage(i)})`}
+                <GridElement
+                  image={this.controller.getProductImage(i)}
                   onDrop={(e) => this.controller.drop(e, i)}
-                  onDragOver={(e) => e.preventDefault()}
-                  draggable={false}
-                  onClick={(e) => this.controller.removeProduct(e, i)}
-                  data-blocked={this.controller.isBlocked(i)}
-                  data-product={this.controller.hasProduct(i)}
+                  onRemove={(e) => this.controller.removeProduct(e, i)}
+                  dataBlocked={this.controller.isBlocked(i)}
+                  dataProduct={this.controller.hasProduct(i)}
                 />
               ))}
             </div>
