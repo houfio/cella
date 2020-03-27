@@ -76,14 +76,16 @@ export class CategoryView extends View {
           <div className="col-4">
             {product && (
               <>
-                <div
-                  style="width: calc(100% / 7.5)"
-                  className="drag-source force-square"
-                  id="square"
-                  draggable={true}
-                  onDragStart={this.controller.drag}
-                />
-                <ul className="list-group mb-3 mt-3">
+                <div className="d-flex justify-content-end mb-3">
+                  <div
+                    style={`width: calc(100% / 7.5); background-image: url(${this.controller.product.image})`}
+                    className="drag-source force-square"
+                    id="square"
+                    draggable={true}
+                    onDragStart={this.controller.drag}
+                  />
+                </div>
+                <ul className="list-group mb-3">
                   {Object.entries(product).filter(([key]) => key !== 'id' && key !== 'image').map(([key, value]) => key !== 'extra' ? (
                     <li className="list-group-item">{fieldLabels[key].label}: {value}</li>
                   ) : value.map(({ label, value: v }) => (
@@ -96,10 +98,22 @@ export class CategoryView extends View {
                   <li className="list-group-item">Verkoopprijs (inc.
                     BTW): {(parseInt(product.price || 0) * 1.21).toFixed(2)}</li>
                 </ul>
-                <input onChange={this.controller.onUpload} type="file" id="product_image"/>
-                <button onClick={this.controller.saveCanvas} className="btn btn-primary">
-                  Save
-                </button>
+                <div className="input-group mb-3">
+                  <div className="custom-file">
+                    <input
+                      type="file"
+                      className="custom-file-input"
+                      id="product_image"
+                      onChange={this.controller.onUpload}
+                    />
+                    <label className="custom-file-label" htmlFor="product_image">Choose file</label>
+                  </div>
+                  <div className="input-group-append">
+                    <button onClick={this.controller.saveCanvas} className="btn btn-primary">
+                      Save
+                    </button>
+                  </div>
+                </div>
                 <canvas
                   onMouseMove={this.controller.handleDraw}
                   onMouseDown={this.controller.handleDraw}
@@ -116,11 +130,13 @@ export class CategoryView extends View {
               {range(0, 225).map((i) => (
                 <div
                   className="grid-item force-square"
-                  onDrop={this.controller.drop}
+                  style={`background-image: url(${this.controller.getProductImage(i)})`}
+                  onDrop={(e) => this.controller.drop(e, i)}
                   onDragOver={(e) => e.preventDefault()}
                   draggable={false}
-                  onClick={this.controller.removeProduct}
+                  onClick={(e) => this.controller.removeProduct(e, i)}
                   data-blocked={this.controller.isBlocked(i)}
+                  data-product={this.controller.hasProduct(i)}
                 />
               ))}
             </div>

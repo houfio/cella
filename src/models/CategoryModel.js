@@ -4,6 +4,7 @@ export class CategoryModel extends Model {
   city = this.cities[0];
   temperature = undefined;
   productId = undefined;
+  grid = [];
 
   get cities() {
     return [

@@ -77,7 +77,11 @@ li.list-group-item-action:not(.active):hover {
 
   &-item {
     position: relative;
+    padding: .5rem;
     background-color: $gray-300;
+    background-origin: content-box;
+    background-repeat: no-repeat;
+    background-size: cover;
 
     &:nth-child(odd)::after {
       content: "";
@@ -90,18 +94,18 @@ li.list-group-item-action:not(.active):hover {
       background-color: rgba(0, 0, 0, .1);
     }
 
-    &[data-product] {
-      background-color: $danger;
+    &[data-product="true"] {
       transition: background-color .25s ease;
 
       &:hover {
-        background-color: $warning;
+        background-color: transparentize($danger, .75);
         cursor: pointer;
+        transition: background-color .25s ease .25s;
       }
     }
 
     &[data-blocked="true"] {
-      background-image: url(./assets/times-solid.svg);
+      background-image: url(./assets/times-solid.svg) !important;
       background-size: 1.5rem;
       background-position: center;
       background-repeat: no-repeat;
@@ -116,6 +120,7 @@ li.list-group-item-action:not(.active):hover {
   border-radius: $btn-border-radius;
   background-repeat: no-repeat;
   background-origin: content-box;
+  background-size: cover;
 
   &:hover {
     cursor: grab;

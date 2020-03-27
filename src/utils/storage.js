@@ -26,7 +26,17 @@ class Storage {
   update(key, id, data) {
     const list = this.#getRaw(key);
 
-    localStorage.setItem(key, JSON.stringify(list.map((value) => value.id === id ? data : value )));
+    localStorage.setItem(key, JSON.stringify(list.map((value) => value.id === id ? data : value)));
+  }
+
+  remove(key, id) {
+    this.filter(key, (value) => value.id !== id);
+  }
+
+  filter(key, fn) {
+    const list = this.#getRaw(key);
+
+    localStorage.setItem(key, JSON.stringify(list.filter(fn)));
   }
 
   get(key) {

@@ -1,3 +1,4 @@
+import fileInput from 'bs-custom-file-input';
 import { Controller } from '../Controller';
 import { blockages, categoryLabels } from '../constants';
 import { CategoryModel } from '../models/CategoryModel';
@@ -36,15 +37,15 @@ export class CategoryController extends Controller {
 
   update() {
     const canvasRef = this.refs['product_canvas'];
-    const squareRef = this.refs['square'];
 
     this.#upload = canvasRef ? new Upload(canvasRef) : undefined;
     this.#drawer = canvasRef ? new Drawer(canvasRef) : undefined;
 
     if (this.product && this.product.image) {
       this.#drawer.fillCanvas(this.product.image);
-      this.#drawer.fillBackground(squareRef, this.product.image);
     }
+
+    fileInput.init();
   }
 
   get name() {
@@ -64,11 +65,15 @@ export class CategoryController extends Controller {
   }
 
   get product() {
-    return storage.getById(this.model.name, this.model.productId);
+    return storage.getById(this.name, this.model.productId);
   }
 
   get cities() {
     return this.model.cities;
+  }
+
+  get grid() {
+    return storage.get(`${this.name}_grid`);
   }
 
   getWeather = async () => {
@@ -120,15 +125,20 @@ export class CategoryController extends Controller {
     e.dataTransfer.setData('product', productId);
   };
 
-  drop = (e) => {
+  drop = (e, index) => {
     const product = e.dataTransfer.getData('product');
 
-    if (!product || e.target.dataset.blocked === 'true') {
+    if (!product || this.isBlocked(index) || this.hasProduct(index)) {
       return;
     }
 
+    storage.push(`${this.name}_grid`, {
+      id: index,
+      productId: product
+    });
+
     e.preventDefault();
-    e.target.setAttribute('data-product', product);
+    this.rerender();
   };
 
   saveCanvas = () => {
@@ -140,13 +150,23 @@ export class CategoryController extends Controller {
     this.rerender();
   };
 
-  removeProduct = (e) => {
-    e.target.removeAttribute('data-product');
+  removeProduct = (e, index) => {
+    storage.remove(`${this.name}_grid`, index);
+
+    this.rerender();
   };
 
-  isBlocked = (index) => {
-    const { name } = this.model;
+  isBlocked = (index) => blockages[this.name].indexOf(index) !== -1;
 
-    return blockages[name].indexOf(index) !== -1;
-  }
+  hasProduct = (index) => this.grid.some(({ id }) => id === index);
+
+  getProductImage = (index) => {
+    for (const { id, productId } of this.grid) {
+      if (id === index) {
+        return storage.getById(this.name, productId).image || '';
+      }
+    }
+
+    return '';
+  };
 }
