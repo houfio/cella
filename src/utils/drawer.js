@@ -31,6 +31,11 @@ export class Drawer {
     image.src = base64;
   }
 
+  fillBackground(element, base64) {
+    element.style.backgroundImage = `url('${base64}')`;
+    element.style.backgroundSize = 'cover';
+  }
+
   draw(e) {
     if (e.buttons !== 1) {
       return;

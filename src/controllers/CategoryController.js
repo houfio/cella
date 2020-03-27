@@ -35,13 +35,15 @@ export class CategoryController extends Controller {
   }
 
   update() {
-    const ref = this.refs['product_canvas'];
+    const canvasRef = this.refs['product_canvas'];
+    const squareRef = this.refs['square'];
 
-    this.#upload = ref ? new Upload(ref) : undefined;
-    this.#drawer = ref ? new Drawer(ref) : undefined;
+    this.#upload = canvasRef ? new Upload(canvasRef) : undefined;
+    this.#drawer = canvasRef ? new Drawer(canvasRef) : undefined;
 
     if (this.product && this.product.image) {
       this.#drawer.fillCanvas(this.product.image);
+      this.#drawer.fillBackground(squareRef, this.product.image);
     }
   }
 

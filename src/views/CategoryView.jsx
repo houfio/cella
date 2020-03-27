@@ -79,6 +79,7 @@ export class CategoryView extends View {
                 <div
                   style="width: calc(100% / 7.5)"
                   className="bg-danger force-square"
+                  id="square"
                   draggable={true}
                   onDragStart={this.controller.drag}
                 />
