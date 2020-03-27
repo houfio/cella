@@ -1,5 +1,6 @@
 import { View } from '../View';
 import { fieldLabels } from '../constants';
+import { Calculator } from '../parts/Calculator';
 import { Input } from '../parts/Input';
 import { Jumbotron } from '../parts/Jumbotron';
 import { jsx } from '../utils/jsx';
@@ -13,6 +14,7 @@ export class CreateView extends View {
     return (
       <div className="container">
         <Jumbotron title="Product aanmaken"/>
+        <Calculator/>
         <div className="row">
           <div className="col-4">
             <ul className="list-group overflow-hidden text-nowrap">
