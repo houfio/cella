@@ -122,7 +122,7 @@ export class CategoryView extends View {
                   onMouseMove={this.controller.handleDraw}
                   onMouseDown={this.controller.handleDraw}
                   id="product_canvas"
-                  className="border border-dark"
+                  className="canvas"
                   width="348"
                   height="348"
                 />

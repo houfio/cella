@@ -127,6 +127,11 @@ li.list-group-item-action:not(.active):hover {
   }
 }
 
+.canvas {
+  border: 2px dashed $gray-400;
+  border-radius: $btn-border-radius;
+}
+
 .force-square::after {
   content: "";
   display: block;
